@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "877650051681",
+    "project_id": "rekruit-4f62a",
+    "storage_bucket": "rekruit-4f62a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877650051681:android:3a8f666e82ab673093e020",
+        "android_client_info": {
+          "package_name": "com.example.rekruit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877650051681-13krgelfakf3kgkq7ggsf881qr4ile67.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF2cTobe2kUDRsiXMnSapI7NY8633ZAKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "877650051681-13krgelfakf3kgkq7ggsf881qr4ile67.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
