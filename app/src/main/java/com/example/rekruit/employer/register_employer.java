@@ -112,7 +112,7 @@ public class register_employer extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(@NonNull Void unused) {
-                                            Toast.makeText(register_employer.this, "Sign Up Succesfully", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(register_employer.this, "Sign Up Successfully", Toast.LENGTH_LONG).show();
                                             Intent intent = new Intent(register_employer.this, login_applicant.class);
                                             startActivity(intent);
                                         }

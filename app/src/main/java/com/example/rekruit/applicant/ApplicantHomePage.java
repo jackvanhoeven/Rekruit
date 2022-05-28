@@ -11,10 +11,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.rekruit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -31,9 +36,13 @@ public class ApplicantHomePage extends AppCompatActivity {
 
     FirebaseFirestore db;
 
+    private String jobID;
     MyAdapter adapter;
 
     ProgressDialog progressDialog;
+
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +60,14 @@ public class ApplicantHomePage extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         db = FirebaseFirestore.getInstance();
-        list = new ArrayList<Job>();
+        list = new ArrayList<Job>();//job list
         adapter = new MyAdapter(this,list);
         recyclerView.setAdapter(adapter);
 
 
-        EventChangeListener();
+//        jobID = getIntent().getStringExtra("jobID");
+
+        EventChangeListener();//to list avaiable job using recyclerview
 
 
 
@@ -82,7 +93,7 @@ public class ApplicantHomePage extends AppCompatActivity {
 
                     case R.id.accountNav:
                         startActivity(new Intent(getApplicationContext()
-                                ,ApplicantProfile.class));
+                                ,ApplicantAccountPage.class));
                         overridePendingTransition(0,0);
                         return true;
 
@@ -91,9 +102,24 @@ public class ApplicantHomePage extends AppCompatActivity {
             }
         });
 
+
+
+
+
     }
 
+
+//    public void onItemClick(View view, int position) {
+//        uid = recyclerView.getItem(position).getUid();
+//        Log.e("ManageUser,  ", "Uid: " + uid);
+//        Toast.makeText(getApplicationContext()," Uid: " + uid, Toast.LENGTH_SHORT).show();
+//
+//
+//
+//    }
+
     private void EventChangeListener() {
+//        DocumentReference docRef = db.collection("Jobs").document(jobID);
 
         db.collection("Jobs")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

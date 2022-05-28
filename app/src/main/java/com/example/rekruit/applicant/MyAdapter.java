@@ -1,6 +1,7 @@
 package com.example.rekruit.applicant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rekruit.R;
+import com.example.rekruit.authentication.login_applicant;
 
 import java.util.ArrayList;
 
@@ -35,11 +37,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
 
         Job job  = list.get(position);
+        final String jobID = job.getJobID();
+
         holder.jobTitle.setText(job.getJobTitle());
         holder.jobType.setText(job.getJobType());
         holder.salary.setText(job.getSalary());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context,ApplicantJobDescriptionPage.class);
+                intent.putExtra("jobID",jobID);
+               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
+            }
+        });
+
+
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -56,4 +76,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             salary = itemView.findViewById(R.id.salaryTV);
         }
     }
+
+
 }

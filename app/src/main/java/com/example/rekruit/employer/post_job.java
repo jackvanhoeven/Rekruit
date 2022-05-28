@@ -40,6 +40,7 @@ public class post_job extends AppCompatActivity {
         setContentView(R.layout.activity_post_job);
 
 
+
         btnPostJob = findViewById(R.id.btnPostJob);
         etJobTitle = findViewById(R.id.etJobTitle);
         jobTypeTV = findViewById(R.id.tvJobType);
@@ -70,11 +71,15 @@ public class post_job extends AppCompatActivity {
         String jobDesc = etJobDesc.getText().toString();
         String salary = etSalary.getText().toString();
 
+
+        final String timestamp = ""+System.currentTimeMillis();
+
         job.put("jobTitle", jobTitle);
         job.put("jobType", jobType);
         job.put("jobDesc", jobDesc);
         job.put("salary", salary);
         job.put("employerID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        job.put("jobID",timestamp);
 
         db.collection("Jobs")
                 .add(job)
@@ -82,7 +87,8 @@ public class post_job extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
-                        Toast.makeText(post_job.this, "Job Posted Succesfully", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(post_job.this, "Job Posted Successfully", Toast.LENGTH_SHORT).show();
 //                        clearData();
                     }
                 })
@@ -92,6 +98,9 @@ public class post_job extends AppCompatActivity {
                         Log.w("TAG", "Error adding document", e);
                     }
                 });
+
+
+
 
 
 

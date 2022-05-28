@@ -66,7 +66,7 @@ public class job_list extends AppCompatActivity {
 
                     case R.id.accountNav:
                         startActivity(new Intent(getApplicationContext()
-                                ,ApplicantProfile.class));
+                                ,ApplicantAccountPage.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

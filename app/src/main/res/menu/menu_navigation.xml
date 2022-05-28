@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/jobNav"
-        android:title="Home"
+        android:title="Jobs"
         android:icon="@drawable/ic_work"/>
     <item
         android:id="@+id/accountNav"

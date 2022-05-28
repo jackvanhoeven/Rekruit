@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rekruit">
         <activity
+            android:name=".applicant.ApplicantResumePage"
+            android:exported="false" />
+        <activity
+            android:name=".applicant.ApplicantSavedJob"
+            android:exported="false" />
+        <activity
+            android:name=".applicant.ApplicantAppliedJob"
+            android:exported="false" />
+        <activity
+            android:name=".applicant.ApplicantJobDescriptionPage"
+            android:exported="false" />
+        <activity
+            android:name=".employer.EmployerAccountPage"
+            android:exported="false" />
+        <activity
+            android:name=".applicant.ApplicantAccountPage"
+            android:exported="false" />
+        <activity
             android:name=".employer.EmployerEditProfile"
             android:exported="false" />
         <activity

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.rekruit.R;
+
 public class EmployerEditProfile extends AppCompatActivity {
 
     @Override

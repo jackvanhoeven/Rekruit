@@ -2,12 +2,13 @@ package com.example.rekruit.applicant;
 
 public class Job {
 
-    private String employerName, jobDesc, jobTitle, jobType, salary;
+    private String employerName, jobDesc, jobTitle, jobType, salary, jobID;
 
     public Job() {
     }
 
-    public Job(String employerName, String jobDesc, String jobTitle, String jobType, String salary) {
+    public Job(String jobID, String employerName, String jobDesc, String jobTitle, String jobType, String salary) {
+        this.jobID = jobID;
         this.employerName = employerName;
         this.jobDesc = jobDesc;
         this.jobTitle = jobTitle;
@@ -15,6 +16,9 @@ public class Job {
         this.salary = salary;
     }
 
+    public String getJobID() {
+        return jobID;
+    }
     public String getEmployerName() {
         return employerName;
     }
@@ -33,6 +37,10 @@ public class Job {
 
     public String getSalary() {
         return salary;
+    }
+
+    public void setJobID(String jobID) {
+        this.jobID = jobID;
     }
 
     public void setEmployerName(String employerName) {
