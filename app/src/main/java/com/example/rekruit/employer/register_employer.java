@@ -41,7 +41,7 @@ public class register_employer extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
-    private TextView registerEmployerTV;
+    private TextView registerEmployerTV,skipToLoginTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class register_employer extends AppCompatActivity {
 
 
         btnSignUp = findViewById(R.id.btnSignUp); //declare Button
+        skipToLoginTV = findViewById(R.id.skipToLogin);
 
         progressDialog = new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
@@ -68,8 +69,63 @@ public class register_employer extends AppCompatActivity {
             public void onClick(View view) {
 
                 RegisterEmployer();
+
             }
         });
+
+        skipToLoginTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToLoginPage();
+            }
+        });
+    }
+
+    private void AddEmployerInfo() {
+
+        String companyName = etCompanyName.getText().toString();
+        String address = etAddress.getText().toString();
+        String email = etCompanyEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        String confirmPassword = etConfirmPassword.getText().toString();
+        String phoneNumber = etPhoneNumber.getText().toString();
+
+        user.put("employerName",companyName);
+        user.put("Address",address);
+        user.put("Email",email);
+        user.put("Password", password);
+        user.put("confirmPassword",confirmPassword);
+        user.put("PhoneNumber", phoneNumber);
+        user.put("employerID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        user.put("userType", "Employer");
+
+
+
+        firebaseFirestore.collection("users").document(this.mAuth.getCurrentUser().getUid())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(),"Successfully Register", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), login_applicant.class);
+                        startActivity(intent);
+                        //Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),"Unsuccessfully Register", Toast.LENGTH_SHORT).show();
+                        //Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
+    }
+
+    private void ToLoginPage() {
+        Intent intent = new Intent(register_employer.this,login_applicant.class);
+        startActivity(intent);
     }
 
     private void RegisterEmployer() {
@@ -81,53 +137,35 @@ public class register_employer extends AppCompatActivity {
         String confirmPassword = etConfirmPassword.getText().toString();
         String phoneNumber = etPhoneNumber.getText().toString();
 
-        // Create a new user with a first and last name
-
-
-        user.put("Company Name",companyName);
-        user.put("Address",address);
-        user.put("Email",email);
-        user.put("Password", password);
-        user.put("confirmPassword",confirmPassword);
-        user.put("PhoneNumber", phoneNumber);
-
-        user.put("userType", "Employer");
-
 
         if(!etCompanyName.getText().toString().equals("") && !etAddress.getText().toString().equals("") &&!etCompanyEmail.getText().toString().equals("")
                 && !etPassword.getText().toString().equals("") && !etConfirmPassword.getText().toString().equals("")
             && !etPhoneNumber.getText().toString().equals("")) {
 
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(etCompanyEmail.getText().toString(),
-                    etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mAuth.createUserWithEmailAndPassword(email,
+                    password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    task.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(@NonNull AuthResult authResult) {
-                            // Register User add to Firebase
-                            firebaseFirestore.collection("users")
-                                    .document(authResult.getUser().getUid())
-                                    .set(user)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(@NonNull Void unused) {
-                                            Toast.makeText(register_employer.this, "Sign Up Successfully", Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(register_employer.this, login_applicant.class);
-                                            startActivity(intent);
-                                        }
-                                    });
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        //Log.d(TAG, "createUserWithEmail:success");
 
 
-                        }
-                    });
-                    task.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(register_employer.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+
+                        Toast.makeText(getApplicationContext(), "Authentication Success.",
+                                Toast.LENGTH_SHORT).show();
+
+                        AddEmployerInfo();
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        //updateUI(null);
+                    }
                 }
+
             });
         }
         else {

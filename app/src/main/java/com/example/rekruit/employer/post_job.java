@@ -15,11 +15,15 @@ import android.widget.Toast;
 
 import com.example.rekruit.R;
 import com.example.rekruit.model.Constant;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +35,8 @@ public class post_job extends AppCompatActivity {
     EditText etJobTitle,  etJobDesc, etSalary;
     TextView jobTypeTV;
 
+    String employerName;
+    String currentUserID;
     Map<String, Object> job = new HashMap<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -40,12 +46,18 @@ public class post_job extends AppCompatActivity {
         setContentView(R.layout.activity_post_job);
 
 
+        currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.e("testGetCurrentUserID", currentUserID);
+
+        getEmployerInfo();
 
         btnPostJob = findViewById(R.id.btnPostJob);
         etJobTitle = findViewById(R.id.etJobTitle);
         jobTypeTV = findViewById(R.id.tvJobType);
         etJobDesc = findViewById(R.id.etJobDesc);
         etSalary = findViewById(R.id.etSalary);
+
+
 
 
         btnPostJob.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +76,33 @@ public class post_job extends AppCompatActivity {
         });
     }
 
+    private void getEmployerInfo() {
+
+
+            db.collection("users").whereEqualTo("employerID", currentUserID)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("TAG", document.getId() + " => " + document.getData());
+
+
+                                    employerName = document.getData().get("employerName").toString();
+
+
+
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+
+                        }
+                    });
+
+    }
+
     private void postJob() {
 
         String jobTitle = etJobTitle.getText().toString();
@@ -72,12 +111,16 @@ public class post_job extends AppCompatActivity {
         String salary = etSalary.getText().toString();
 
 
-        final String timestamp = ""+System.currentTimeMillis();
+        final String timestamp = ""+System.currentTimeMillis();//to generate job ID
+
+
+
 
         job.put("jobTitle", jobTitle);
         job.put("jobType", jobType);
         job.put("jobDesc", jobDesc);
         job.put("salary", salary);
+        job.put("employerName", employerName);
         job.put("employerID", FirebaseAuth.getInstance().getCurrentUser().getUid());
         job.put("jobID",timestamp);
 

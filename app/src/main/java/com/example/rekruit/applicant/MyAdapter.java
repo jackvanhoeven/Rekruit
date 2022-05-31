@@ -42,6 +42,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.jobTitle.setText(job.getJobTitle());
         holder.jobType.setText(job.getJobType());
         holder.salary.setText(job.getSalary());
+        holder.employerName.setText(job.getEmployerName());
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,13 +69,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView jobTitle, jobDesc, jobType, salary;
+        TextView jobTitle, jobDesc, jobType, salary,employerName;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             jobTitle = itemView.findViewById(R.id.jobTitleTV);
             jobType = itemView.findViewById(R.id.jobTypeTV);
             salary = itemView.findViewById(R.id.salaryTV);
+            employerName = itemView.findViewById(R.id.companyNameTV);
+
         }
     }
 

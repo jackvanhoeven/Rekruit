@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class registerApplicantActivity extends AppCompatActivity {
+public class   registerApplicantActivity extends AppCompatActivity {
 
 
     EditText etEmail, etPassword,etConfirmPassword, etFullName,etPhoneNumber;
@@ -42,6 +44,10 @@ public class registerApplicantActivity extends AppCompatActivity {
     private FirebaseUser mUser;
 
     private TextView registerEmployerTV;
+    ImageView toLoginPageArrow;
+    TextView toLoginPageTV;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,11 @@ public class registerApplicantActivity extends AppCompatActivity {
         etFullName = findViewById(R.id.etFullName);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         registerEmployerTV = findViewById(R.id.registerEmployerTV);
+
+
+        toLoginPageArrow = findViewById(R.id.toLoginPageArrow);
+        toLoginPageTV = findViewById(R.id.toLoginPageTV);
+
 
         btnSignUp = findViewById(R.id.btnSignUp); //declare Button
 
@@ -77,6 +88,24 @@ public class registerApplicantActivity extends AppCompatActivity {
             }
         });
 
+        toLoginPageArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToLoginPage();
+            }
+        });
+        toLoginPageTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToLoginPage();
+            }
+        });
+
+    }
+
+    private void ToLoginPage() {
+        Intent intent = new Intent(registerApplicantActivity.this,login_applicant.class);
+        startActivity(intent);
     }
 
     private void toRegisterEmployer() {
@@ -91,6 +120,49 @@ public class registerApplicantActivity extends AppCompatActivity {
         String fullName = etFullName.getText().toString();
         String phoneNumber = etPhoneNumber.getText().toString();
 
+
+
+
+        if(!etEmail.getText().toString().equals("") && !etFullName.getText().toString().equals("") && !etPhoneNumber.getText().toString().equals("")
+                && !etPassword.getText().toString().equals("") && !etConfirmPassword.getText().toString().equals("")) {
+            mAuth.createUserWithEmailAndPassword(email,
+                    password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        //Log.d(TAG, "createUserWithEmail:success");
+
+
+
+                        Toast.makeText(getApplicationContext(), "Authentication Success.",
+                                Toast.LENGTH_SHORT).show();
+
+                        AddApplicantInfo();
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        //updateUI(null);
+                    }
+                }
+
+            });
+        }
+        else {
+            Toast.makeText(registerApplicantActivity.this, "Sign Up Failed", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void AddApplicantInfo() {
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        String confirmPassword = etConfirmPassword.getText().toString();
+        String fullName = etFullName.getText().toString();
+        String phoneNumber = etPhoneNumber.getText().toString();
+
         // Create a new user with a first and last name
 
         user.put("Email",email);
@@ -99,49 +171,30 @@ public class registerApplicantActivity extends AppCompatActivity {
         user.put("FullName", fullName);
         user.put("PhoneNumber", phoneNumber);
 
+        user.put("applicantID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         user.put("userType", "Applicant");
 
 
-        if(!etEmail.getText().toString().equals("") && !etFullName.getText().toString().equals("") && !etPhoneNumber.getText().toString().equals("")
-                && !etPassword.getText().toString().equals("") && !etConfirmPassword.getText().toString().equals("")) {
-
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    task.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(@NonNull AuthResult authResult) {
-                            // Register User add to Firebase
-                            firebaseFirestore.collection("users")
-                                    .document(authResult.getUser().getUid())
-                                    .set(user)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(@NonNull Void unused) {
-                                            Toast.makeText(registerApplicantActivity.this, "Sign Up Succesfully", Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(registerApplicantActivity.this, login_applicant.class);
-                                            startActivity(intent);
-                                        }
-                                    });
-
-
-                        }
-                    });
-                    task.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(registerApplicantActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            });
-        }
-        else {
-            Toast.makeText(registerApplicantActivity.this, "Sign Up Failed", Toast.LENGTH_LONG).show();
-        }
+        firebaseFirestore.collection("users").document(this.mAuth.getCurrentUser().getUid())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(),"Successfully Register", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), login_applicant.class);
+                        startActivity(intent);
+                        //Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),"Unsuccessfully Register", Toast.LENGTH_SHORT).show();
+                        //Log.w(TAG, "Error writing document", e);
+                    }
+                });
     }
-
-
 
 
 }
