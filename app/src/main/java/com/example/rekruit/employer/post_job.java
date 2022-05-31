@@ -35,7 +35,7 @@ public class post_job extends AppCompatActivity {
     EditText etJobTitle,  etJobDesc, etSalary;
     TextView jobTypeTV;
 
-    String employerName;
+    String employerName,employerLoc;
     String currentUserID;
     Map<String, Object> job = new HashMap<>();
 
@@ -90,6 +90,7 @@ public class post_job extends AppCompatActivity {
 
 
                                     employerName = document.getData().get("employerName").toString();
+                                    employerLoc = document.getData().get("employerLoc").toString();
 
 
 
@@ -114,13 +115,12 @@ public class post_job extends AppCompatActivity {
         final String timestamp = ""+System.currentTimeMillis();//to generate job ID
 
 
-
-
         job.put("jobTitle", jobTitle);
         job.put("jobType", jobType);
         job.put("jobDesc", jobDesc);
         job.put("salary", salary);
         job.put("employerName", employerName);
+        job.put("employerLoc",employerLoc);
         job.put("employerID", FirebaseAuth.getInstance().getCurrentUser().getUid());
         job.put("jobID",timestamp);
 
@@ -132,7 +132,7 @@ public class post_job extends AppCompatActivity {
                         Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
 
                         Toast.makeText(post_job.this, "Job Posted Successfully", Toast.LENGTH_SHORT).show();
-//                        clearData();
+                          clearData();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -91,7 +91,7 @@ public class register_employer extends AppCompatActivity {
         String phoneNumber = etPhoneNumber.getText().toString();
 
         user.put("employerName",companyName);
-        user.put("Address",address);
+        user.put("employerLoc",address);
         user.put("Email",email);
         user.put("Password", password);
         user.put("confirmPassword",confirmPassword);

@@ -2,18 +2,28 @@ package com.example.rekruit.applicant;
 
 public class Job {
 
-    private String employerName, jobDesc, jobTitle, jobType, salary, jobID;
+    private String employerName, jobDesc, jobTitle, jobType, salary, jobID, employerLoc;
 
     public Job() {
     }
 
-    public Job(String jobID, String employerName, String jobDesc, String jobTitle, String jobType, String salary) {
+
+    public Job(String jobID, String employerName, String jobDesc, String jobTitle,String jobType,String salary,String employerLoc) {
         this.jobID = jobID;
         this.employerName = employerName;
         this.jobDesc = jobDesc;
         this.jobTitle = jobTitle;
         this.jobType = jobType;
         this.salary = salary;
+        this.employerLoc = employerLoc;
+    }
+
+    public String getEmployerLoc() {
+        return employerLoc;
+    }
+
+    public void setEmployerLoc(String employerLoc) {
+        this.employerLoc = employerLoc;
     }
 
     public String getJobID() {

@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rekruit.R;
-import com.example.rekruit.authentication.login_applicant;
 
 import java.util.ArrayList;
 
@@ -43,6 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.jobType.setText(job.getJobType());
         holder.salary.setText(job.getSalary());
         holder.employerName.setText(job.getEmployerName());
+        holder.employerLoc.setText(job.getEmployerLoc());
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView jobTitle, jobDesc, jobType, salary,employerName;
+        TextView jobTitle, jobDesc, jobType, salary,employerName,employerLoc;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -77,6 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             jobType = itemView.findViewById(R.id.jobTypeTV);
             salary = itemView.findViewById(R.id.salaryTV);
             employerName = itemView.findViewById(R.id.companyNameTV);
+            employerLoc = itemView.findViewById(R.id.locationTV);
 
         }
     }
