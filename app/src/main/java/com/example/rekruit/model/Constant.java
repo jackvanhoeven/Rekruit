@@ -15,20 +15,31 @@ public class Constant
 
     };
 
-    public static final String[] jobIndustry = {
+    public static final String[] jobCategory = {
 
-            "Art and Design",
+            "Accounting & Finance",
             "Automotive",
             "Consulting",
+            "Creative",
+            "Customer Service",
             "E-Commerce",
             "Education",
             "Engineering",
-            "Financial",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "Food & Beverage",
+            "Human Resources",
+            "IT-Data Science & Analytics",
+            "IT-General",
+            "IT-Software Development",
+            "Legal",
+            "Marketing",
+            "Other",
+            "Project Management",
+            "Retail",
+            "Sales",
+            "Supply Chain & Logistics"
+
+
+
     };
 
 

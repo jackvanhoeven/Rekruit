@@ -32,8 +32,8 @@ public class post_job extends AppCompatActivity {
 
     Button btnPostJob;
 
-    EditText etJobTitle,  etJobDesc, etSalary;
-    TextView jobTypeTV;
+    EditText etJobTitle,  etJobDesc, etSalary,etJobReq;
+    TextView jobTypeTV,jobCategoryTV;
 
     String employerName,employerLoc;
     String currentUserID;
@@ -55,7 +55,9 @@ public class post_job extends AppCompatActivity {
         etJobTitle = findViewById(R.id.etJobTitle);
         jobTypeTV = findViewById(R.id.tvJobType);
         etJobDesc = findViewById(R.id.etJobDesc);
+        etJobReq = findViewById(R.id.etJobReq);
         etSalary = findViewById(R.id.etSalary);
+        jobCategoryTV = findViewById(R.id.tvJobCategory);
 
 
 
@@ -75,6 +77,29 @@ public class post_job extends AppCompatActivity {
 
             }
         });
+
+        jobCategoryTV.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jobCategoryDialog();
+            }
+        }));
+    }
+
+    private void jobCategoryDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Job Specialization")
+                .setItems(Constant.jobCategory, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String category = Constant.jobCategory[which];
+
+
+                        //set pick category
+                        jobCategoryTV.setText(category);
+                    }
+                })
+                .show();
     }
 
     private void getEmployerInfo() {
@@ -109,6 +134,8 @@ public class post_job extends AppCompatActivity {
 
         String jobTitle = etJobTitle.getText().toString();
         String jobType = jobTypeTV.getText().toString();
+        String jobReq = etJobReq.getText().toString();
+        String jobCategory = jobCategoryTV.getText().toString();
         String jobDesc = etJobDesc.getText().toString();
         String salary = etSalary.getText().toString();
 
@@ -118,6 +145,8 @@ public class post_job extends AppCompatActivity {
 
         job.put("jobTitle", jobTitle);
         job.put("jobType", jobType);
+        job.put("jobCategory", jobCategory);
+        job.put("jobReq", jobReq);
         job.put("jobDesc", jobDesc);
         job.put("salary", salary);
         job.put("employerName", employerName);

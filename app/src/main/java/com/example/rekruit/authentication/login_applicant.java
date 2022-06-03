@@ -91,7 +91,7 @@ public class login_applicant extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            toApplicantHomePage();
+            checkUserType();
         }
     }
 

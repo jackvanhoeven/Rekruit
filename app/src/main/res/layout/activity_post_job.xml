@@ -54,7 +54,6 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Job Type"
-
                 android:paddingLeft="20dp"
                 android:paddingTop="13dp"
                 android:paddingRight="20dp"
@@ -64,24 +63,59 @@
                 app:layout_constraintStart_toStartOf="@+id/etJobTitle"
                 app:layout_constraintTop_toBottomOf="@+id/etJobTitle" />
 
-            <EditText
-                android:id="@+id/etJobDesc"
+            <TextView
+                android:id="@+id/tvJobCategory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="40dp"
                 android:background="@drawable/input_bg"
+                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Job Description"
+                android:hint="Job Specialization"
 
                 android:paddingLeft="20dp"
                 android:paddingTop="13dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="13dp"
+
                 app:layout_constraintEnd_toEndOf="@+id/tvJobType"
                 app:layout_constraintStart_toStartOf="@+id/tvJobType"
-                app:layout_constraintTop_toBottomOf="@id/tvJobType" />
+                app:layout_constraintTop_toBottomOf="@+id/tvJobType" />
+
+            <EditText
+                android:id="@+id/etJobDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/input_bg"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Job Description"
+                android:paddingLeft="20dp"
+                android:paddingTop="13dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="13dp"
+                app:layout_constraintEnd_toEndOf="@+id/tvJobCategory"
+                app:layout_constraintStart_toStartOf="@+id/tvJobCategory"
+                app:layout_constraintTop_toBottomOf="@id/tvJobCategory" />
+            <EditText
+                android:id="@+id/etJobReq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/input_bg"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Job Requirement"
+
+                android:paddingLeft="20dp"
+                android:paddingTop="13dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="13dp"
+                app:layout_constraintEnd_toEndOf="@+id/etJobDesc"
+                app:layout_constraintStart_toStartOf="@+id/etJobDesc"
+                app:layout_constraintTop_toBottomOf="@id/etJobDesc" />
 
 
             <EditText
@@ -99,9 +133,9 @@
                 android:paddingTop="13dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="13dp"
-                app:layout_constraintEnd_toEndOf="@+id/etJobDesc"
-                app:layout_constraintStart_toStartOf="@+id/etJobDesc"
-                app:layout_constraintTop_toBottomOf="@id/etJobDesc" />
+                app:layout_constraintEnd_toEndOf="@+id/etJobReq"
+                app:layout_constraintStart_toStartOf="@+id/etJobReq"
+                app:layout_constraintTop_toBottomOf="@id/etJobReq" />
 
             <TextView
                 android:id="@+id/textView"
@@ -120,7 +154,6 @@
                 android:id="@+id/btnPostJob"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:text="Post Job"
                 app:backgroundTint="#01b8c8"
                 app:layout_constraintBottom_toBottomOf="parent"
