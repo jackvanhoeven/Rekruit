@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/employerHomeNav"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/employerJobNav"
+        android:title="Jobs"
+        android:icon="@drawable/ic_work"/>
+    <item
+        android:id="@+id/employerAccountNav"
+        android:title="Account"
+        android:icon="@drawable/ic_baseline_business_white"/>
+
+</menu>
