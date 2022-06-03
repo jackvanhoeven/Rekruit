@@ -56,7 +56,7 @@ public class login_applicant extends AppCompatActivity {
         forgotPasswordTV = findViewById(R.id.forgotPasswordTV);
 
         // Initialize Firebase Auth
-       mAuth = FirebaseAuth.getInstance();
+            mAuth = FirebaseAuth.getInstance();
 //        progressDialog = new ProgressDialog(this);
 //        progressDialog.setTitle("Please wait");
 //        progressDialog.setCanceledOnTouchOutside(false);
@@ -83,6 +83,16 @@ public class login_applicant extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            toApplicantHomePage();
+        }
     }
 
 //    @Override

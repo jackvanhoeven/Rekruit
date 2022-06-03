@@ -37,7 +37,7 @@
             android:name=".employer.EmployerProfile"
             android:exported="false" />
         <activity
-            android:name=".employer.EmployerHomePage"
+            android:name=".employer.EmployerJobPage"
             android:exported="false" />
         <activity
             android:name=".applicant.ApplicantProfile"

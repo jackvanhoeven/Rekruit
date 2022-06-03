@@ -67,7 +67,7 @@ public class ApplicantHomePage extends AppCompatActivity {
 
 //        jobID = getIntent().getStringExtra("jobID");
 
-        EventChangeListener();//to list avaiable job using recyclerview
+        EventChangeListener();//to list available job using recyclerview
 
 
 

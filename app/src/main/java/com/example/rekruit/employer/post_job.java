@@ -63,6 +63,7 @@ public class post_job extends AppCompatActivity {
         btnPostJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 postJob();
             }
         });

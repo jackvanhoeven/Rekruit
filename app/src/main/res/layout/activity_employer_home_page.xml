@@ -19,52 +19,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/employer_Bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#01B8C8"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        app:backgroundTint="@color/teal_200"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPostJob"
+        app:layout_constraintVertical_bias="1"
+        app:menu="@menu/employer_menu_nav">
 
-
-        app:layout_constraintVertical_bias="1">
-
-        <ImageView
-            android:id="@+id/btnAddJob"
-            android:layout_width="141dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_add_job"
-
-            >
-
-        </ImageView>
-
-        <ImageView
-            android:layout_width="141dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_home_white"
-
-            >
-
-        </ImageView>
-
-        <ImageView
-            android:layout_width="129dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_profile"
-
-            >
-
-        </ImageView>
-
-
-    </LinearLayout>
-
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
