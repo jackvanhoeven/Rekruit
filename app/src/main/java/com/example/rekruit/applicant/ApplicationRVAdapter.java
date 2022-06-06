@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rekruit.R;
+import com.example.rekruit.model.Application;
 
 import java.util.ArrayList;
 
@@ -38,8 +39,10 @@ public class ApplicationRVAdapter extends RecyclerView.Adapter<ApplicationRVAdap
         // setting data to our text views from our modal class.
         Application application = applicationArrayList.get(position);
 
-        holder.tvJobName.setText(application.getJobID());
-        holder.tvEmployerName.setText(application.getEmployerID());
+        holder.tvJobName.setText(application.getJobTitle());
+        holder.tvEmployerName.setText(application.getEmployerName());
+        holder.tvApplicationStatus.setText(application.getApplicationStatus());
+        holder.tvApplicationID.setText(application.getApplicationID());
 
 
     }
@@ -59,6 +62,8 @@ public class ApplicationRVAdapter extends RecyclerView.Adapter<ApplicationRVAdap
 
         private final TextView tvJobName;
         private final TextView tvEmployerName;
+        private final TextView tvApplicationStatus;
+        private final TextView tvApplicationID;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,6 +72,9 @@ public class ApplicationRVAdapter extends RecyclerView.Adapter<ApplicationRVAdap
 
             tvEmployerName = itemView.findViewById(R.id.appCompanyTV);
             tvJobName = itemView.findViewById(R.id.appJobTitleTV);
+            tvApplicationStatus = itemView.findViewById(R.id.applicantStatus);
+            tvApplicationID = itemView.findViewById(R.id.applicationIDTV);
+
             itemView.setOnClickListener(this);
 
         }

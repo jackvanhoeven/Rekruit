@@ -1,27 +1,37 @@
-package com.example.rekruit.applicant;
+package adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rekruit.R;
+import com.example.rekruit.applicant.ApplicantJobDescriptionPage;
+import com.example.rekruit.model.FilterJob;
+import com.example.rekruit.model.Job;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable {
 
-    Context context;
-    ArrayList<Job> list;
+    public ArrayList<Job> filterList;
+    private Context context;
+    public ArrayList<Job> list;
+    private FilterJob filter;
+
 
     public MyAdapter(Context context, ArrayList<Job> list) {
         this.context = context;
         this.list = list;
+        this.filterList = new ArrayList<>(list);
+
     }
 
     @NonNull
@@ -45,11 +55,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.employerLoc.setText(job.getEmployerLoc());
 
 
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context,ApplicantJobDescriptionPage.class);
+                Intent intent = new Intent(context, ApplicantJobDescriptionPage.class);
                 intent.putExtra("jobID",jobID);
                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -65,11 +76,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
+
         return list.size();
     }
 
+
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new FilterJob(this,filterList);
+        }
+        return  filter;
+    }
+
+
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView jobTitle, jobDesc, jobType, salary,employerName,employerLoc;
+        TextView jobTitle, jobDesc, jobType, salary,employerName,employerLoc,jobCategory;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -78,9 +100,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             salary = itemView.findViewById(R.id.salaryTV);
             employerName = itemView.findViewById(R.id.companyNameTV);
             employerLoc = itemView.findViewById(R.id.locationTV);
+            jobCategory = itemView.findViewById(R.id.tvJobCategory);
 
         }
     }
 
+//    @Override
+//    public Filter getFilter() {
+//        if(filter == null ){
+//            filter = new FilterJob(this, filterJobList);
+//        }
+//
+//        return filter;
+//    }
 
 }

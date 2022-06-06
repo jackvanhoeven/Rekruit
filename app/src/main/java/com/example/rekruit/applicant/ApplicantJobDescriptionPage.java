@@ -13,13 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
-import com.example.rekruit.employer.post_job;
+import com.example.rekruit.model.Job;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,12 +34,13 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV;
-    private String jobID,employerID, applicationID,applicantID,applicationStatus,jobTittle;
+    private String jobID,employerID, applicationID,applicantID,applicationStatus,jobTittle,saveStatus,savedJobID;
 
     String employerName;
     ArrayList<Job> list;
-    Button applyJobBtn;
+    Button applyJobBtn, saveJobBtn;
     Map<String, Object> jobApplication = new HashMap<>();
+    Map<String, Object> saveJobHashMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         applyJobBtn = findViewById(R.id.applyJobBtn);
+        saveJobBtn = findViewById(R.id.saveJobBtn);
 
 
         applicantID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -67,9 +68,11 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
         int randomID = rand.nextInt(99999999)+1;
         applicationID = "application" + randomID;
 
+        savedJobID = "savedJob" + randomID;
 
         checkInitialApplicationStatus();
-        
+        checkInitialSaveStatus();
+
 //        displayJobDesc();
         displayJobInfoTest();
         applyJobBtn.setOnClickListener(new View.OnClickListener() {
@@ -81,12 +84,132 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
             }
         });
 
+        saveJobBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkSaveJobStatus();
+            }
+        });
 
 
 
 
 
 
+
+    }
+
+    private void checkInitialSaveStatus() {
+
+        db.collection("savedJob")
+                .whereEqualTo("jobID", jobID)
+                .whereEqualTo("applicantID",applicantID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                saveJobBtn.setText("Saved");
+                                saveJobBtn.setBackgroundColor(Color.GRAY);
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void checkSaveJobStatus() {
+        db.collection("savedJob")
+                .whereEqualTo("jobID", jobID)
+                .whereEqualTo("applicantID",applicantID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if(task.getResult().isEmpty()){
+                                saveJob();
+                            }
+                            else{
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("TAG", document.getId() + " => " + document.getData());
+                                    saveJobBtn.setText("Saved");
+                                    saveJobBtn.setBackgroundColor(Color.GRAY);
+                                }
+
+                            }
+
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
+    }
+
+    private void saveJob() {
+
+        saveStatus = "saved";
+
+
+
+        saveJobHashMap.put("applicationID", applicationID);
+        saveJobHashMap.put("employerID", employerID);
+        saveJobHashMap.put("applicantID", applicantID);
+        saveJobHashMap.put("saveStatus", saveStatus);
+        saveJobHashMap.put("savedJobID",savedJobID);
+        saveJobHashMap.put("employerName",employerName);
+        saveJobHashMap.put("jobID",jobID);
+        saveJobHashMap.put("jobTitle",jobTittle);
+
+
+        db.collection("savedJob").document(savedJobID).set(saveJobHashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+
+                        changeSaveButtonColor();
+
+                        Toast.makeText(ApplicantJobDescriptionPage.this, "Saved", Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+    }
+
+    private void changeSaveButtonColor() {
+
+        db.collection("savedJob").whereEqualTo("savedJobID", savedJobID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+
+                                if(!saveStatus.equals("")) {
+                                    saveJobBtn.setText("Saved");
+                                    saveJobBtn.setBackgroundColor(Color.GRAY);
+                                }
+                            }
+                        }
+                        else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
     }
 
     private void checkInitialApplicationStatus() {
@@ -179,27 +302,9 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
         jobApplication.put("applicantID", applicantID);
         jobApplication.put("applicationStatus", applicationStatus);
         jobApplication.put("jobID", jobID);
+        jobApplication.put("employerName",employerName);
+        jobApplication.put("jobTitle",jobTittle);
 
-
-//        db.collection("application")
-//                .add(jobApplication)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
-//
-//                        changeButtonColor();
-//
-//                        Toast.makeText(ApplicantJobDescriptionPage.this, "Applied", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("TAG", "Error adding document", e);
-//                    }
-//                });
 
         db.collection("application").document(applicationID).set(jobApplication)
         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -209,7 +314,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
                 changeButtonColor();
 
-                Toast.makeText(ApplicantJobDescriptionPage.this, "Applied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ApplicantJobDescriptionPage.this, "Saved", Toast.LENGTH_SHORT).show();
 
             }
         })
@@ -284,6 +389,8 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
                                 companyNameTVjobDesc.setText(document.getData().get("employerName").toString());
                                 fullJobDescTV.setText(document.getData().get("jobDesc").toString());
                                 employerID = document.getData().get("employerID").toString();//get employerID for job application
+                                employerName = document.getData().get("employerName").toString();
+                                jobTittle = document.getData().get("jobTitle").toString();
 
 
 

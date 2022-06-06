@@ -5,38 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".applicant.ApplicantHomePage">
-    
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rl1">
 
-        <ImageView
-            android:id="@+id/app_logo"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rekruit_logo"
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/app_logo"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+
+                android:background="@drawable/rekruit_logo"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
             />
 
-        <EditText
-            android:id="@+id/searchProductEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/app_logo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/input_bg"
-            android:drawableLeft="@drawable/ic_baseline_search_24"
-            android:hint="  Search for Job"
-            android:padding="10dp"
+            <ImageView
+                android:id="@+id/filterBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
 
-            android:textStyle="italic" />
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_colored_filter"
+
+
+                />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/filterJobTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/linearLayout4"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="5dp"
+            android:text="All"
+            android:textColor="@color/black"
+
+            />
+
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/searchJobEt"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@+id/app_logo"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            android:layout_marginTop="5dp"-->
+        <!--            android:layout_marginEnd="50dp"-->
+        <!--            android:layout_marginBottom="5dp"-->
+        <!--            android:background="@drawable/input_bg"-->
+        <!--            android:drawableStart="@drawable/ic_baseline_search_24"-->
+
+        <!--            android:hint="  Search for Job"-->
+        <!--            android:padding="10dp"-->
+
+        <!--            android:textStyle="italic" />-->
 
 
     </RelativeLayout>
@@ -52,9 +96,21 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/filterRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/job_card_view">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
 
 
     </RelativeLayout>

@@ -1,14 +1,14 @@
-package com.example.rekruit.applicant;
+package com.example.rekruit.model;
 
 public class Job {
 
-    private String employerName, jobDesc, jobTitle, jobType, salary, jobID, employerLoc;
+    private String employerName, jobDesc, jobTitle, jobType, salary, jobID, employerLoc,jobCategory,employerID,jobReq;
 
     public Job() {
     }
 
 
-    public Job(String jobID, String employerName, String jobDesc, String jobTitle,String jobType,String salary,String employerLoc) {
+    public Job(String jobID, String employerName, String jobDesc, String jobTitle,String jobType,String salary,String employerLoc, String EmployerID, String jobReq) {
         this.jobID = jobID;
         this.employerName = employerName;
         this.jobDesc = jobDesc;
@@ -16,6 +16,33 @@ public class Job {
         this.jobType = jobType;
         this.salary = salary;
         this.employerLoc = employerLoc;
+        this.jobCategory = jobCategory;
+        this.jobReq = jobReq;
+        this.employerID = employerID;
+    }
+
+    public String getEmployerID() {
+        return employerID;
+    }
+
+    public void setEmployerID(String employerID) {
+        this.employerID = employerID;
+    }
+
+    public String getJobReq() {
+        return jobReq;
+    }
+
+    public void setJobReq(String jobReq) {
+        this.jobReq = jobReq;
+    }
+
+    public String getJobCategory() {
+        return jobCategory;
+    }
+
+    public void setJobCategory(String jobCategory) {
+        this.jobCategory = jobCategory;
     }
 
     public String getEmployerLoc() {

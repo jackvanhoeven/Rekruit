@@ -17,6 +17,7 @@ public class Constant
 
     public static final String[] jobCategory = {
 
+            "All",
             "Accounting & Finance",
             "Automotive",
             "Consulting",

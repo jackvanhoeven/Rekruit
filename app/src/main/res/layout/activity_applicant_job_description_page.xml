@@ -56,9 +56,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@color/white"
+
                 android:elevation="10dp"
                 android:orientation="vertical"
+                android:background="@drawable/job_desc_layout_corner"
+                android:layout_marginBottom="15dp"
+                android:outlineSpotShadowColor="#01b8c8"
                 android:padding="15dp"
 
 
@@ -91,14 +94,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@color/white"
                 android:elevation="10dp"
                 android:orientation="vertical"
+                android:background="@drawable/job_desc_layout_corner"
+                android:layout_marginBottom="15dp"
+                android:outlineSpotShadowColor="#01b8c8"
+
                 android:padding="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="ABOUT THE JOB" />
 
                 <TextView
@@ -114,14 +121,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@color/white"
                 android:elevation="10dp"
                 android:orientation="vertical"
+                android:background="@drawable/job_desc_layout_corner"
+                android:layout_marginBottom="15dp"
+                android:outlineSpotShadowColor="#01b8c8"
                 android:padding="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="JOB REQUIREMENT" />
             </LinearLayout>
 
@@ -129,14 +139,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@color/white"
                 android:elevation="10dp"
                 android:orientation="vertical"
+                android:background="@drawable/job_desc_layout_corner"
+                android:layout_marginBottom="15dp"
+                android:outlineSpotShadowColor="#01b8c8"
                 android:padding="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="ABOUT US" />
 
 
@@ -146,19 +159,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:background="@color/white"
                 android:elevation="10dp"
                 android:orientation="vertical"
+                android:background="@drawable/job_desc_layout_corner"
+                android:layout_marginBottom="15dp"
+                android:outlineSpotShadowColor="#01b8c8"
                 android:padding="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="OUR BENEFIT" />
             </LinearLayout>
 
 
+
         </LinearLayout>
+
+
 
 
     </ScrollView>
@@ -167,12 +186,29 @@
         android:id="@+id/applyJobBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apply Job"
+
         android:layout_marginBottom="80dp"
+        android:text="Apply job"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/saveJobBtn" />
+
+    <Button
+        android:id="@+id/saveJobBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Save Job"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/applyJobBtn"
+        app:layout_constraintBottom_toBottomOf="@id/applyJobBtn"
+        app:layout_constraintTop_toTopOf="@id/applyJobBtn"
+
+
+        />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

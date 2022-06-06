@@ -1,18 +1,36 @@
-package com.example.rekruit.applicant;
+package com.example.rekruit.model;
 
 public class Application {
 
-    private String applicantID,applicationID,applicationStatus,employerID,jobID;
+    private String applicantID,applicationID,applicationStatus,employerID,jobID,employerName,jobTitle;
 
     public Application() {
     }
 
-    public Application(String applicantID, String applicationID, String applicationStatus, String employerID, String jobID) {
+    public Application(String applicantID, String applicationID, String applicationStatus, String employerID, String jobID,String employerName, String jobTitle) {
         this.applicantID = applicantID;
         this.applicationID = applicationID;
         this.applicationStatus = applicationStatus;
         this.employerID = employerID;
         this.jobID = jobID;
+        this.employerName = employerName;
+        this.jobTitle = jobTitle;
+    }
+
+    public String getEmployerName() {
+        return employerName;
+    }
+
+    public void setEmployerName(String employerName) {
+        this.employerName = employerName;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     public String getApplicantID() {
