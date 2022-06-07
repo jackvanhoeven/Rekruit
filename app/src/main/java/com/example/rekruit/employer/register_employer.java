@@ -92,10 +92,10 @@ public class register_employer extends AppCompatActivity {
 
         user.put("employerName",companyName);
         user.put("employerLoc",address);
-        user.put("Email",email);
-        user.put("Password", password);
+        user.put("email",email);
+        user.put("password", password);
         user.put("confirmPassword",confirmPassword);
-        user.put("PhoneNumber", phoneNumber);
+        user.put("phoneNum", phoneNumber);
         user.put("employerID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         user.put("userType", "Employer");

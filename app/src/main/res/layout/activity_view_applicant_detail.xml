@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".applicant.ApplicantJobDescriptionPage">
+    tools:context=".employer.ViewApplicantDetail">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,24 +69,28 @@
 
 
                 <TextView
-                    android:id="@+id/jobTitleTVjobDesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:text="Job Title"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    tools:layout_editor_absoluteX="2dp"
-                    tools:layout_editor_absoluteY="270dp" />
-
-
-                <TextView
-                    android:id="@+id/companyNameTVjobDesc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Company Name"
-                    tools:layout_editor_absoluteX="13dp"
-                    tools:layout_editor_absoluteY="340dp" />
+                    android:textStyle="bold"
+                    android:text="APPLICANT NAME"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Email"
+                    android:layout_marginTop="15dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Phone Number"
+                    android:layout_marginTop="15dp"/>
+
+
+
+
+
 
             </LinearLayout>
 
@@ -106,72 +110,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="ABOUT THE JOB" />
+                    android:text="APPLICANT RESUME" />
 
                 <TextView
                     android:id="@+id/fullJobDescTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Full Job Description" />
+                    android:text="Download Resume" />
 
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:elevation="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/job_desc_layout_corner"
-                android:layout_marginBottom="15dp"
-                android:outlineSpotShadowColor="#01b8c8"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="JOB REQUIREMENT" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:elevation="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/job_desc_layout_corner"
-                android:layout_marginBottom="15dp"
-                android:outlineSpotShadowColor="#01b8c8"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="ABOUT US" />
 
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:elevation="10dp"
-                android:orientation="vertical"
-                android:background="@drawable/job_desc_layout_corner"
-                android:layout_marginBottom="15dp"
-                android:outlineSpotShadowColor="#01b8c8"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="OUR BENEFIT" />
-            </LinearLayout>
 
 
 
@@ -188,7 +139,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginBottom="80dp"
-        android:text="Apply job"
+        android:text="Interview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -199,16 +150,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Save Job"
+        android:text="Reject"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/applyJobBtn"
         app:layout_constraintBottom_toBottomOf="@id/applyJobBtn"
         app:layout_constraintTop_toTopOf="@id/applyJobBtn"
+        android:backgroundTint="#c7190a"
 
 
         />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,21 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
-import com.example.rekruit.applicant.ApplicantHomePage;
-import com.example.rekruit.applicant.ApplicantJobDescriptionPage;
-import com.example.rekruit.applicant.job_list;
 import com.example.rekruit.model.Application;
 import com.example.rekruit.model.Job;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,82 +24,51 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.ApplicationRVAdapter;
 import adapter.EmployerViewJobPostedAdapter;
+import adapter.ViewApplicationRVAdapter;
 
-public class EmployerJobPage extends AppCompatActivity implements EmployerViewJobPostedAdapter.ItemClickListener{
+public class ViewJobApplication extends AppCompatActivity implements ViewApplicationRVAdapter.ItemClickListener {
 
-    private RecyclerView jobPostedRV;
-    private ArrayList<Job> jobPostedList;
-    private EmployerViewJobPostedAdapter jobPostedRVAdapter;
+    private RecyclerView viewApplicationRV;
+    private ArrayList<Application> viewApplicationList;
+    private ViewApplicationRVAdapter viewApplicationRVAdapter;
     private FirebaseFirestore db;
     ProgressBar loadingPB;
 
     private String jobID,employerID,applicantID;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employer_job_page);
+        setContentView(R.layout.activity_view_job_application);
 
 
         loadingPB = findViewById(R.id.idProgressBar);
-        jobPostedRV = findViewById(R.id.jobPostedRV);
+        viewApplicationRV = findViewById(R.id.viewApplicationRV);
 
-        jobPostedList = new ArrayList<>();
-        jobPostedRV.setHasFixedSize(true);
-        jobPostedRV.setLayoutManager(new LinearLayoutManager(this));
+        viewApplicationList = new ArrayList<>();
+        viewApplicationRV.setHasFixedSize(true);
+        viewApplicationRV.setLayoutManager(new LinearLayoutManager(this));
 
-        jobPostedRVAdapter = new EmployerViewJobPostedAdapter(jobPostedList,this);
-        jobPostedRVAdapter.setClickListener(this);
+        viewApplicationRVAdapter = new ViewApplicationRVAdapter(viewApplicationList,this);
+        viewApplicationRVAdapter.setClickListener(this);
 
-        jobPostedRV.setAdapter(jobPostedRVAdapter);
+        viewApplicationRV.setAdapter(viewApplicationRVAdapter);
 
         // initializing our variable for firebase
         // firestore and getting its instance.
         db = FirebaseFirestore.getInstance();
 
 
-
-        //Iniatialize and Assign Variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.employer_Bottom_navigation);
-
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.employerJobNav);
-
-        //Perform ItemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.employerHomeNav:
-                        startActivity(new Intent(getApplicationContext()
-                                , employer_home_page.class));
-                        overridePendingTransition(0,0);
-
-                        return true;
-                    case R.id.employerJobNav:
-
-
-                        return true;
-                    case R.id.employerAccountNav:
-                        startActivity(new Intent(getApplicationContext()
-                                , EmployerAccountPage.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
-
+        Intent intent = getIntent();
+        jobID = intent.getStringExtra("jobID");
 
         // below line is use to get the data from Firebase Firestore.
         // previously we were saving data on a reference of Courses
         // now we will be getting the data from the same reference.
-        db.collection("Jobs")
+        db.collection("application")
                 .whereEqualTo("employerID", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .whereEqualTo("jobID",jobID)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -117,25 +80,25 @@ public class EmployerJobPage extends AppCompatActivity implements EmployerViewJo
                             // if the snapshot is not empty we are
                             // hiding our progress bar and adding
                             // our data in a list.
-                            loadingPB.setVisibility(View.GONE);
+
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for (DocumentSnapshot d : list) {
                                 // after getting this list we are passing
                                 // that list to our object class.
-                                Job c = d.toObject(Job.class);
+                                Application c = d.toObject(Application.class);
 
                                 // and we will pass this object class
                                 // inside our arraylist which we have
                                 // created for recycler view.
-                                jobPostedList.add(c);
+                                viewApplicationList.add(c);
                             }
                             // after adding the data to recycler view.
                             // we are calling recycler view notifuDataSetChanged
                             // method to notify that data has been changed in recycler view.
-                            jobPostedRVAdapter.notifyDataSetChanged();
+                            viewApplicationRVAdapter.notifyDataSetChanged();
                         } else {
                             // if the snapshot is empty we are displaying a toast message.
-                            loadingPB.setVisibility(View.GONE);
+
 
                         }
                     }
@@ -148,15 +111,14 @@ public class EmployerJobPage extends AppCompatActivity implements EmployerViewJo
             }
         });
 
-
-
     }
+
 
     @Override
     public void onItemClick(View view, int position) {
-        String jobID = jobPostedRVAdapter.getItem(position).getJobID();
-        Intent intent = new Intent(this, ViewJobApplication.class);
-        intent.putExtra("jobID",jobID);
+        String applicationID = viewApplicationRVAdapter.getItem(position).getApplicationID();
+        Intent intent = new Intent(this, ViewApplicantDetail.class);
+        intent.putExtra("applicationID",applicationID);
         startActivity(intent);
     }
 }

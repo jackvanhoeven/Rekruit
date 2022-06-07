@@ -1,21 +1,16 @@
-package com.example.rekruit.applicant;
+package com.example.rekruit.employer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.example.rekruit.R;
 
-public class ApplicantEditProfile extends AppCompatActivity {
-
-
+public class ViewApplicantDetail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_applicant_edit_profile);
-
+        setContentView(R.layout.activity_view_applicant_detail);
     }
 }

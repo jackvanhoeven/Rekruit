@@ -134,7 +134,7 @@ public class ApplicantSaved extends Fragment implements  SavedJobRVAdapter.ItemC
                             savedJobRVAdapter.notifyDataSetChanged();
                         } else {
                             // if the snapshot is empty we are displaying a toast message.
-                            loadingPB.setVisibility(View.GONE);
+
 
                         }
                     }

@@ -71,6 +71,7 @@ public class ApplicantHomePage extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Data.....");
         progressDialog.show();
+        progressDialog.dismiss();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

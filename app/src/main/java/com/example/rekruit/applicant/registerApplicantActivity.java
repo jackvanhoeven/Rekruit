@@ -123,8 +123,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
 
 
 
-        if(!etEmail.getText().toString().equals("") && !etFullName.getText().toString().equals("") && !etPhoneNumber.getText().toString().equals("")
-                && !etPassword.getText().toString().equals("") && !etConfirmPassword.getText().toString().equals("")) {
+        if(!email.equals("") && !fullName.equals("") && !phoneNumber.equals("")&& !password.equals("") && !confirmPassword.equals("")) {
             mAuth.createUserWithEmailAndPassword(email,
                     password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -165,11 +164,11 @@ public class   registerApplicantActivity extends AppCompatActivity {
 
         // Create a new user with a first and last name
 
-        user.put("Email",email);
-        user.put("Password", password);
+        user.put("email",email);
+        user.put("password", password);
         user.put("confirmPassword",confirmPassword);
-        user.put("FullName", fullName);
-        user.put("PhoneNumber", phoneNumber);
+        user.put("applicantName", fullName);
+        user.put("phoneNum", phoneNumber);
 
         user.put("applicantID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 

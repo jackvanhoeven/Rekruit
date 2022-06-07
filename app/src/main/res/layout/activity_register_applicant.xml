@@ -95,7 +95,7 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_bg"
+
                     android:drawableLeft="@drawable/ic_baseline_security_24"
                     android:drawablePadding="10dp"
                     android:inputType="textPassword"
@@ -117,7 +117,7 @@
                     android:id="@+id/etConfrimPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_bg"
+
                     android:drawableLeft="@drawable/ic_baseline_security_24"
                     android:drawablePadding="10dp"
                     android:inputType="textPassword"
@@ -139,7 +139,7 @@
                     android:id="@+id/etFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_bg"
+
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:hint="Full Name"/>
@@ -179,7 +179,6 @@
                     android:id="@+id/etPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/input_bg"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:hint="Phone Number"

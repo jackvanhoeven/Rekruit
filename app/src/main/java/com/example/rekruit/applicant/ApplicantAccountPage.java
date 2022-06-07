@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ApplicantAccountPage extends AppCompatActivity {
 
     ImageView btnLogout;
+    ImageView pdfIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,18 @@ public class ApplicantAccountPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        pdfIV = findViewById(R.id.resumeIV);
+
+        pdfIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToApplicantResumePage();
+            }
+        });
+
+
+
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,6 +79,12 @@ public class ApplicantAccountPage extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void goToApplicantResumePage() {
+
+        Intent intent = new Intent(ApplicantAccountPage.this, ApplicantResumePage.class);
+        startActivity(intent);
     }
 
     private void signOut() {

@@ -20,6 +20,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
         android:orientation="vertical"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,12 +31,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
+
             android:padding="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@color/black"
+                android:id="@+id/userPic"
 
                 />
 
@@ -43,11 +46,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/usernameTV"
                     android:text="Hi, username"
                     android:textSize="20sp" />
 
@@ -55,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="useremail@gmail.com"
+                    android:id="@+id/userEmailTV"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -72,11 +77,12 @@
             android:background="@drawable/layout_corner"
             android:layout_marginBottom="15dp"
             android:outlineSpotShadowColor="#01b8c8"
+
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="37dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/ic_profile" />
 
             <TextView
@@ -103,8 +109,9 @@
           >
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="37dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/resumeIV"
                 android:background="@drawable/ic_myresume" />
 
             <TextView
@@ -130,8 +137,8 @@
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="37dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/ic_baseline_settings_24" />
 
             <TextView
@@ -157,8 +164,8 @@
            >
 
             <ImageView
-                android:layout_width="34dp"
-                android:layout_height="37dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/logoutBtn"
                 android:background="@drawable/ic_baseline_logout_24" />
 
@@ -180,7 +187,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="#01b8c8"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation"

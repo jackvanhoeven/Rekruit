@@ -34,7 +34,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV;
-    private String jobID,employerID, applicationID,applicantID,applicationStatus,jobTittle,saveStatus,savedJobID;
+    private String jobID,employerID, applicationID,applicantID,applicationStatus,jobTittle,saveStatus,savedJobID,applicantName,employerLoc,salary;
 
     String employerName;
     ArrayList<Job> list;
@@ -56,6 +56,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
         saveJobBtn = findViewById(R.id.saveJobBtn);
 
 
+
         applicantID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.e("testGetCurrentUserID",  applicantID);
 
@@ -69,6 +70,8 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
         applicationID = "application" + randomID;
 
         savedJobID = "savedJob" + randomID;
+
+        getApplicantInfo();
 
         checkInitialApplicationStatus();
         checkInitialSaveStatus();
@@ -97,6 +100,32 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
 
 
+    }
+
+    private void getApplicantInfo() {
+
+        db.collection("users")
+                .whereEqualTo("applicantID",applicantID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+
+
+                                applicantName = document.getData().get("applicantName").toString();
+
+
+
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
     }
 
     private void checkInitialSaveStatus() {
@@ -165,6 +194,8 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
         saveJobHashMap.put("employerName",employerName);
         saveJobHashMap.put("jobID",jobID);
         saveJobHashMap.put("jobTitle",jobTittle);
+        saveJobHashMap.put("employerLoc",employerLoc);
+        saveJobHashMap.put("salary",salary);
 
 
         db.collection("savedJob").document(savedJobID).set(saveJobHashMap)
@@ -304,6 +335,8 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
         jobApplication.put("jobID", jobID);
         jobApplication.put("employerName",employerName);
         jobApplication.put("jobTitle",jobTittle);
+        jobApplication.put("applicantName",applicantName);
+        jobApplication.put("employerLoc",employerLoc);
 
 
         db.collection("application").document(applicationID).set(jobApplication)
@@ -391,6 +424,8 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
                                 employerID = document.getData().get("employerID").toString();//get employerID for job application
                                 employerName = document.getData().get("employerName").toString();
                                 jobTittle = document.getData().get("jobTitle").toString();
+                                employerLoc = document.getData().get("employerLoc").toString();
+                                salary = document.getData().get("salary").toString();
 
 
 
