@@ -1,4 +1,4 @@
-package com.example.rekruit.applicant;
+package adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -86,7 +86,7 @@ public class ApplicationRVAdapter extends RecyclerView.Adapter<ApplicationRVAdap
 
 
     // allows clicks events to be caught
-    void setClickListener(ApplicationRVAdapter.ItemClickListener itemClickListener) {
+    public void setClickListener(ApplicationRVAdapter.ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

@@ -1,5 +1,6 @@
 package com.example.rekruit.applicant;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import adapter.ApplicationRVAdapter;
 
 
 public class ApplicantApplied extends Fragment implements  ApplicationRVAdapter.ItemClickListener{
@@ -121,11 +124,14 @@ public class ApplicantApplied extends Fragment implements  ApplicationRVAdapter.
 
     @Override
     public void onItemClick(View view, int position) {
-//        uid = userRVAdapter.getItem(position).getUid();
-//        Log.e("ManageUser,  ", "Uid: " + uid);
-//        Toast.makeText(getApplicationContext()," Uid: " + uid, Toast.LENGTH_SHORT).show();
-//
-//        readUser();
+        String jobID = applicationRVAdapter.getItem(position).getJobID();
+        Intent intent = new Intent(getContext(),ApplicantJobDescriptionPage.class);
+        intent.putExtra("jobID",jobID);
+        startActivity(intent);
+
+
+
+
 
     }
 }
