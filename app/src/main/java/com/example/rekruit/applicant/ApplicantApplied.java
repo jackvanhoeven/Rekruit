@@ -26,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.ApplicationRVAdapter;
+import com.example.rekruit.adapter.ApplicationRVAdapter;
 
 
 public class ApplicantApplied extends Fragment implements  ApplicationRVAdapter.ItemClickListener{
@@ -60,13 +60,13 @@ public class ApplicantApplied extends Fragment implements  ApplicationRVAdapter.
         rvApplication.setHasFixedSize(true);
         rvApplication.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // adding our array list to our recycler view adapter class.
+        // adding our array list to our recycler view com.example.rekruit.adapter class.
         applicationRVAdapter = new ApplicationRVAdapter(applicationArrayList, getContext());
 
         // enable setclicklistener to recyclerview
         applicationRVAdapter.setClickListener(this);
 
-        // setting adapter to our recycler view.
+        // setting com.example.rekruit.adapter to our recycler view.
         rvApplication.setAdapter(applicationRVAdapter);
 
 

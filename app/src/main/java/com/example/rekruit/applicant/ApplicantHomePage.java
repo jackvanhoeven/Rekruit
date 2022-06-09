@@ -32,8 +32,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import adapter.FilterJobAdapter;
-import adapter.MyAdapter;
+import com.example.rekruit.adapter.FilterJobAdapter;
+import com.example.rekruit.adapter.MyAdapter;
 
 public class ApplicantHomePage extends AppCompatActivity {
 

@@ -245,6 +245,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
     private void checkInitialApplicationStatus() {
 
+        //this function used to set the button color and text when we open the job desc page initially
         db.collection("application")
                 .whereEqualTo("jobID", jobID)
                 .whereEqualTo("applicantID",applicantID)
@@ -275,17 +276,10 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            if(task.getResult().isEmpty()){
-                                jobApplication();
+                            if(task.getResult().isEmpty()){                             //check if job application already exist
+                                jobApplication();                                       //if not, then only we generate new one
                             }
-                            else{
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Log.d("TAG", document.getId() + " => " + document.getData());
-                                    applyJobBtn.setText("Applied");
-                                    applyJobBtn.setBackgroundColor(Color.GRAY);
-                                }
 
-                            }
 
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());

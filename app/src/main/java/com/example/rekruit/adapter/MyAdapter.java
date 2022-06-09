@@ -1,4 +1,4 @@
-package adapter;
+package com.example.rekruit.adapter;
 
 import android.content.Context;
 import android.content.Intent;

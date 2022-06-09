@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,29 +18,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
-import com.example.rekruit.model.Application;
 import com.example.rekruit.model.Job;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.ApplicationRVAdapter;
-import adapter.FilterJobAdapter;
-import adapter.MyAdapter;
-import adapter.SavedJobRVAdapter;
+import com.example.rekruit.adapter.SavedJobRVAdapter;
 
 
-public class ApplicantSaved extends Fragment implements  SavedJobRVAdapter.ItemClickListener{
+public class
+ApplicantSaved extends Fragment implements  SavedJobRVAdapter.ItemClickListener{
 
 
 
@@ -90,13 +82,13 @@ public class ApplicantSaved extends Fragment implements  SavedJobRVAdapter.ItemC
         savedRV.setHasFixedSize(true);
         savedRV.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // adding our array list to our recycler view adapter class.
+        // adding our array list to our recycler view com.example.rekruit.adapter class.
         savedJobRVAdapter = new SavedJobRVAdapter(savedJobList, getContext());
 
         // enable setclicklistener to recyclerview
         savedJobRVAdapter.setClickListener(this);
 
-        // setting adapter to our recycler view.
+        // setting com.example.rekruit.adapter to our recycler view.
         savedRV.setAdapter(savedJobRVAdapter);
 
 

@@ -1,4 +1,4 @@
-package adapter;
+package com.example.rekruit.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,7 +21,7 @@ public class ApplicationRVAdapter extends RecyclerView.Adapter<ApplicationRVAdap
     private ItemClickListener mClickListener;
 
 
-    // creating constructor for our adapter class
+    // creating constructor for our com.example.rekruit.adapter class
     public ApplicationRVAdapter(ArrayList<Application> applicationArrayList, Context context) {
         this.applicationArrayList = applicationArrayList;
         this.context = context;

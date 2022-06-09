@@ -1,4 +1,4 @@
-package adapter;
+package com.example.rekruit.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,13 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rekruit.R;
-import com.example.rekruit.employer.EmployerJobPage;
 import com.example.rekruit.model.Job;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EmployerViewJobPostedAdapter extends RecyclerView.Adapter<EmployerViewJobPostedAdapter.ViewHolder>{
 

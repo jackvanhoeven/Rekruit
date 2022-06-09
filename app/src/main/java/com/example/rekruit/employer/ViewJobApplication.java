@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.rekruit.R;
 import com.example.rekruit.model.Application;
-import com.example.rekruit.model.Job;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.EmployerViewJobPostedAdapter;
-import adapter.ViewApplicationRVAdapter;
+import com.example.rekruit.adapter.ViewApplicationRVAdapter;
 
 public class ViewJobApplication extends AppCompatActivity implements ViewApplicationRVAdapter.ItemClickListener {
 
@@ -117,8 +115,9 @@ public class ViewJobApplication extends AppCompatActivity implements ViewApplica
     @Override
     public void onItemClick(View view, int position) {
         String applicationID = viewApplicationRVAdapter.getItem(position).getApplicationID();
-        Intent intent = new Intent(this, ViewApplicantDetail.class);
+        Intent intent = new Intent(this, ViewApplicationDetail.class);
         intent.putExtra("applicationID",applicationID);
+        intent.putExtra("jobID",jobID);
         startActivity(intent);
     }
 }

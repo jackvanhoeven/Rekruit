@@ -78,7 +78,7 @@
             android:layout_marginBottom="15dp"
             android:outlineSpotShadowColor="#01b8c8"
 
-            android:padding="20dp">
+            android:padding="15dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -105,7 +105,7 @@
             android:background="@drawable/layout_corner"
             android:layout_marginBottom="15dp"
             android:outlineSpotShadowColor="#01b8c8"
-            android:padding="20dp"
+            android:padding="15dp"
           >
 
             <ImageView
@@ -134,7 +134,7 @@
             android:background="@drawable/layout_corner"
             android:layout_marginBottom="15dp"
             android:outlineSpotShadowColor="#01b8c8"
-            android:padding="20dp">
+            android:padding="15dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -160,7 +160,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/layout_corner"
             android:outlineSpotShadowColor="#01b8c8"
-            android:padding="20dp"
+            android:padding="15dp"
            >
 
             <ImageView

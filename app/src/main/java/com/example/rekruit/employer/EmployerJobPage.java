@@ -9,15 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
-import com.example.rekruit.applicant.ApplicantHomePage;
-import com.example.rekruit.applicant.ApplicantJobDescriptionPage;
-import com.example.rekruit.applicant.job_list;
-import com.example.rekruit.model.Application;
 import com.example.rekruit.model.Job;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,8 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.ApplicationRVAdapter;
-import adapter.EmployerViewJobPostedAdapter;
+import com.example.rekruit.adapter.EmployerViewJobPostedAdapter;
 
 public class EmployerJobPage extends AppCompatActivity implements EmployerViewJobPostedAdapter.ItemClickListener{
 

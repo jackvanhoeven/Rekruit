@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import adapter.MyAdapter;
+import com.example.rekruit.adapter.MyAdapter;
 
 public class job_list extends AppCompatActivity {
 
@@ -54,12 +54,13 @@ public class job_list extends AppCompatActivity {
         tabLayout  = findViewById(R.id.tab_Layout);
         viewPager = findViewById(R.id.view_pager);
 
-        //Initialize adapter
+        //Initialize com.example.rekruit.adapter
         tabLayoutAdapter = new TabLayoutAdapter(getSupportFragmentManager());
         //add fragment
         tabLayoutAdapter.AddFragment(new ApplicantApplied(),"Applied");
         tabLayoutAdapter.AddFragment(new ApplicantSaved(),"Saved");
-//        adapter.AddFragment(new three(),"three");
+        tabLayoutAdapter.AddFragment(new ApplicantInterview(),"Interview");
+//        com.example.rekruit.adapter.AddFragment(new three(),"three");
 
         //set Adapter
         viewPager.setAdapter(tabLayoutAdapter);

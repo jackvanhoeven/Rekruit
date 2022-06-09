@@ -23,9 +23,16 @@ import android.widget.Toast;
 import com.example.rekruit.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class ApplicantResumePage extends AppCompatActivity {
 
@@ -35,6 +42,8 @@ public class ApplicantResumePage extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher;
     Uri resumeUri;
     String pdfUri;
+    StorageReference storageReference;
+    DatabaseReference databaseReference;
     
 
 
@@ -46,6 +55,9 @@ public class ApplicantResumePage extends AppCompatActivity {
         setContentView(R.layout.activity_applicant_resume_page);
         tvUri = findViewById(R.id.tv_uri);
         uploadResumeBtn = findViewById(R.id.uploadResumeBtn);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         resultLauncher= registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -115,27 +127,30 @@ public class ApplicantResumePage extends AppCompatActivity {
 
     private void uploadResume() {
 
+        StorageReference reference = storageReference.child("uploadPDF"+ System.currentTimeMillis()+".pdf");
+
+
         DocumentReference nameRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        nameRef
-                .update("resumeUri", pdfUri)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("EditName", "DocumentSnapshot successfully updated!");
+       reference.putFile(resumeUri)
+               .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                   @Override
+                   public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                       Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                       while (!uriTask.isComplete());
+                       Uri uri = uriTask.getResult();
 
-                       /* Intent intent = new Intent(getApplicationContext(),customerProfile.class);
-                        startActivity(intent);*/
+                       databaseReference.child(databaseReference.push().getKey()).setValue(pdfUri);
+                       Toast.makeText(ApplicantResumePage.this, "File Upload", Toast.LENGTH_SHORT).show();
+                   }
+               }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+           @Override
+           public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
 
-                        Toast.makeText(ApplicantResumePage.this, "Profile Picture updated successfully.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("EditName", "Error updating document", e);
-                    }
-                });
+               double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+
+           }
+       });
     }
 
     @Override

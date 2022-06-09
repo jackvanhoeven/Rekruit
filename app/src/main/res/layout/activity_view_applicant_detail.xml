@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".employer.ViewApplicantDetail">
+    tools:context=".employer.ViewApplicationDetail">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,16 +73,19 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="APPLICANT NAME"
+                    android:id="@+id/nameTVVAD"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/emailTVVAD"
                     android:textStyle="bold"
                     android:text="Email"
                     android:layout_marginTop="15dp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/phoneNumVAD"
                     android:textStyle="bold"
                     android:text="Phone Number"
                     android:layout_marginTop="15dp"/>
@@ -134,7 +137,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/applyJobBtn"
+        android:id="@+id/interviewBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -143,18 +146,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toEndOf="@id/saveJobBtn" />
+        app:layout_constraintStart_toEndOf="@id/rejectBtn" />
 
     <Button
-        android:id="@+id/saveJobBtn"
+        android:id="@+id/rejectBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:text="Reject"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/applyJobBtn"
-        app:layout_constraintBottom_toBottomOf="@id/applyJobBtn"
-        app:layout_constraintTop_toTopOf="@id/applyJobBtn"
+        app:layout_constraintEnd_toStartOf="@id/interviewBtn"
+        app:layout_constraintBottom_toBottomOf="@id/interviewBtn"
+        app:layout_constraintTop_toTopOf="@id/interviewBtn"
         android:backgroundTint="#c7190a"
 
 
