@@ -38,7 +38,7 @@
         android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-
+        app:layout_constraintBottom_toTopOf="@+id/employer_Bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
@@ -72,7 +72,7 @@
         app:layout_constraintHorizontal_bias="0.0"
 
         app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/jobPostedRV"
+
         app:layout_constraintVertical_bias="1"
         app:menu="@menu/employer_menu_nav">
 

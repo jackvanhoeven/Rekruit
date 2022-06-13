@@ -130,6 +130,9 @@ public class ViewApplicationDetail extends AppCompatActivity {
                         Log.d("TAG", "DocumentSnapshot Rejected");
                         rejectBtn.setText("Rejected");
                         rejectBtn.setBackgroundColor(Color.GRAY);
+                        rejectBtn.setClickable(false);
+                        interviewBtn.setClickable(false);
+                        interviewBtn.setBackgroundColor(Color.GRAY);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -129,7 +129,6 @@ public class ApplicantResumePage extends AppCompatActivity {
 
         StorageReference reference = storageReference.child("uploadPDF"+ System.currentTimeMillis()+".pdf");
 
-
         DocumentReference nameRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
        reference.putFile(resumeUri)

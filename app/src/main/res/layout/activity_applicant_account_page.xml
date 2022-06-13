@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".applicant.ApplicantEditProfile">
+    tools:context=".applicant.ApplicantAccountPage">
 
     <include
         android:id="@+id/toolBar"
@@ -37,7 +37,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@color/black"
+                android:background="@drawable/circleprofilepicture"
                 android:id="@+id/userPic"
 
                 />
@@ -53,14 +53,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/usernameTV"
                     android:text="Hi, username"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="useremail@gmail.com"
                     android:id="@+id/userEmailTV"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
 

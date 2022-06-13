@@ -123,6 +123,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
 
 
 
+
         if(!email.equals("") && !fullName.equals("") && !phoneNumber.equals("")&& !password.equals("") && !confirmPassword.equals("")) {
             mAuth.createUserWithEmailAndPassword(email,
                     password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -169,7 +170,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
         user.put("confirmPassword",confirmPassword);
         user.put("applicantName", fullName);
         user.put("phoneNum", phoneNumber);
-
+        user.put("Picture URL", "-");
         user.put("applicantID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         user.put("userType", "Applicant");
