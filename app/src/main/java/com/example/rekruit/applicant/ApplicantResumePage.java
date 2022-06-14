@@ -9,10 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.ContactsContract;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,17 +34,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class ApplicantResumePage extends AppCompatActivity {
 
     Button uploadResumeBtn;
+    ProgressDialog progressDialog;
 
-    TextView tvUri,tvPath;
+    TextView tvUri,tvPath,userNameTV;
     ActivityResultLauncher<Intent> resultLauncher;
     Uri resumeUri;
     String pdfUri;
@@ -56,8 +68,9 @@ public class ApplicantResumePage extends AppCompatActivity {
         tvUri = findViewById(R.id.tv_uri);
         uploadResumeBtn = findViewById(R.id.uploadResumeBtn);
 
+
         storageReference = FirebaseStorage.getInstance().getReference();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("resumeUri");
 
         resultLauncher= registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -73,18 +86,18 @@ public class ApplicantResumePage extends AppCompatActivity {
                             resumeUri = data.getData();
                             pdfUri = resumeUri.toString();
                             //Set uri on textview
-                            tvUri.setText(Html.fromHtml(
-                                    "<big><b>PDF Uri</b></big><br>"+resumeUri
-                            ));
+
 //                            //Get PDF Path
 //                            String sPath = sUri.getPath();
 //                            //Set Path  on text view
 //                            tvPath.setText(Html.fromHtml(
 //                                    "<big><b>PDF Path</b></big><br>"+sPath
 //                            ));
+                            uploadResume();
                         }
                     }
                 });
+
 
         uploadResumeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,11 +119,92 @@ public class ApplicantResumePage extends AppCompatActivity {
             }
         });
         
-//        displayResume();
+       tvUri.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               download();
+           }
+       });
+
+    }
+
+    private void download() {
+
+        storageReference=FirebaseStorage.getInstance().getReference();
+
+
+        DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("ProfileActivity", "DocumentSnapshot data: " + document.getData());
+
+
+
+                        pdfUri = document.getData().get("resumeUri").toString();
+//                        new EditProfileActivity.FetchImage(url).start();
+
+                        downloadFile(ApplicantResumePage.this,"Applicant Resume",".pdf", Environment.DIRECTORY_DOWNLOADS,pdfUri);
+
+
+
+
+
+                    } else {
+                        Log.d("ProfileActivity", "No such document");
+                    }
+                } else {
+                    Log.d("ProfileActivity", "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+    }
+
+    public void downloadFile(Context context,String fileName,String fileExtension, String destinationDirectory, String url){
+
+        DownloadManager downloadManager = (DownloadManager) context.
+                getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory,fileName+fileExtension);
+
+        downloadManager.enqueue(request);
 
     }
 
     private void displayResume() {
+
+        DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("ProfileActivity", "DocumentSnapshot data: " + document.getData());
+
+
+
+
+
+
+                        tvUri.setText(document.getData().get("resumeUri").toString());
+
+                    } else {
+                        Log.d("ProfileActivity", "No such document");
+                    }
+                } else {
+                    Log.d("ProfileActivity", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     private void selectPDF() {
@@ -122,34 +216,74 @@ public class ApplicantResumePage extends AppCompatActivity {
         //Launch intent
         resultLauncher.launch(intent);
 
-        uploadResume();
+
     }
 
     private void uploadResume() {
 
-        StorageReference reference = storageReference.child("uploadPDF"+ System.currentTimeMillis()+".pdf");
+        progressDialog =new ProgressDialog(this);
+        progressDialog.setTitle("Uploading file");
+        progressDialog.show();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
+        Date now = new Date();
+        String fileName = formatter.format(now);
+        storageReference = FirebaseStorage.getInstance().getReference("resume/"+ " resume " +fileName+".pdf");
+        storageReference.putFile(resumeUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+
+                        Toast.makeText(ApplicantResumePage.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+
+                                Log.e("URL ", "onSuccess: " + uri);
+                                pdfUri = uri.toString();
+                                updateResumeUrl();
+                            }
+                        });
+                        if(progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if(progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+
+                Toast.makeText(ApplicantResumePage.this, "Failed to upload", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateResumeUrl() {
         DocumentReference nameRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-       reference.putFile(resumeUri)
-               .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                   @Override
-                   public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                       Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                       while (!uriTask.isComplete());
-                       Uri uri = uriTask.getResult();
+        nameRef
+                .update("resumeUri", pdfUri)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("EditName", "DocumentSnapshot successfully updated!");
 
-                       databaseReference.child(databaseReference.push().getKey()).setValue(pdfUri);
-                       Toast.makeText(ApplicantResumePage.this, "File Upload", Toast.LENGTH_SHORT).show();
-                   }
-               }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-           @Override
-           public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                       /* Intent intent = new Intent(getApplicationContext(),customerProfile.class);
+                        startActivity(intent);*/
 
-               double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-
-           }
-       });
+                        Toast.makeText(ApplicantResumePage.this, "Profile Picture updated successfully.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("EditName", "Error updating document", e);
+                    }
+                });
     }
 
     @Override

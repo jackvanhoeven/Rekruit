@@ -124,6 +124,7 @@ public class ApplicantAccountPage extends AppCompatActivity {
         userNameTV = findViewById(R.id.usernameTV);
         userEmailTV = findViewById(R.id.userEmailTV);
         pdfIV = findViewById(R.id.resumeIV);
+        userNameTV = findViewById(R.id.usernameTV);
 
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +216,7 @@ public class ApplicantAccountPage extends AppCompatActivity {
 //                        new EditProfileActivity.FetchImage(url).start();
                         Picasso.with(ApplicantAccountPage.this).load(url).into(userIV);
                         userEmailTV.setText(document.getData().get("email").toString());
+                        userNameTV.setText(document.getData().get("applicantName").toString());
 
                     } else {
                         Log.d("ProfileActivity", "No such document");
