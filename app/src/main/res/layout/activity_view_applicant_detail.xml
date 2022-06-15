@@ -116,10 +116,13 @@
                     android:text="APPLICANT RESUME" />
 
                 <TextView
-                    android:id="@+id/fullJobDescTV"
+                    android:id="@+id/applicantResumeTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Download Resume" />
+                    android:text="Download Resume"
+
+
+                    />
 
 
             </LinearLayout>

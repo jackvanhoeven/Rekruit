@@ -35,8 +35,9 @@ public class post_job extends AppCompatActivity {
     EditText etJobTitle,  etJobDesc, etSalary,etJobReq;
     TextView jobTypeTV,jobCategoryTV;
 
-    String employerName,employerLoc;
+    String employerName,employerLoc,state;
     String currentUserID;
+    private double latlng;
     Map<String, Object> job = new HashMap<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -117,6 +118,8 @@ public class post_job extends AppCompatActivity {
 
                                     employerName = document.getData().get("employerName").toString();
                                     employerLoc = document.getData().get("employerLoc").toString();
+                                    state = document.getData().get("state").toString();
+
 
 
 

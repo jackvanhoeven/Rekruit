@@ -216,7 +216,7 @@ public class ApplicantAccountPage extends AppCompatActivity {
 //                        new EditProfileActivity.FetchImage(url).start();
                         Picasso.with(ApplicantAccountPage.this).load(url).into(userIV);
                         userEmailTV.setText(document.getData().get("email").toString());
-                        userNameTV.setText(document.getData().get("applicantName").toString());
+
 
                     } else {
                         Log.d("ProfileActivity", "No such document");

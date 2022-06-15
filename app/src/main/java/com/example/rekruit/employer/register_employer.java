@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 import com.example.rekruit.R;
 import com.example.rekruit.applicant.registerApplicantActivity;
 import com.example.rekruit.authentication.login_applicant;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,20 +28,30 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class register_employer extends AppCompatActivity {
 
 
-    EditText etCompanyName, etAddress, etCompanyEmail, etPassword,etConfirmPassword,etPhoneNumber;
+    EditText etCompanyName, etAddress,etAddress2,etCity,etPostcode,etState, etCompanyEmail, etPassword,etConfirmPassword,etPhoneNumber;
     String emailPattern = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]";
     Map<String, Object> user = new HashMap<>();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     Button btnSignUp;
     ProgressDialog progressDialog;
+
+    GoogleMap mGoogleMap;
+
+    private double latitude, longitude;
+    private Geocoder geocoder;
+    GeoPoint geoPoint;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -52,6 +67,10 @@ public class register_employer extends AppCompatActivity {
         etCompanyName = findViewById(R.id.etCompanyName);
         etCompanyEmail = findViewById(R.id.etCompanyEmail);
         etAddress = findViewById(R.id.etAddress);
+        etAddress2 = findViewById(R.id.etAddress2);
+        etCity = findViewById(R.id.etCity);
+        etPostcode = findViewById(R.id.etPostcode);
+        etState = findViewById(R.id.etState);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
@@ -63,6 +82,8 @@ public class register_employer extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
+
+
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,17 +102,41 @@ public class register_employer extends AppCompatActivity {
         });
     }
 
+
+
     private void AddEmployerInfo() {
 
         String companyName = etCompanyName.getText().toString();
-        String address = etAddress.getText().toString();
+        String state = etState.getText().toString();
+
         String email = etCompanyEmail.getText().toString();
         String password = etPassword.getText().toString();
         String confirmPassword = etConfirmPassword.getText().toString();
         String phoneNumber = etPhoneNumber.getText().toString();
+        String fullAddress = etAddress.getText().toString()+", "+etAddress2.getText().toString()+", "+etCity.getText().toString()
+                +", "+etPostcode.getText().toString() +", "+etState.getText().toString();
+
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            List<Address> addressList = geocoder.getFromLocationName(fullAddress,5);
+
+            if(addressList.size()>0){
+                Address address = addressList.get(0);
+
+                geoPoint = new GeoPoint(address.getLatitude(),address.getLongitude());
+
+                Toast.makeText(this, address.getLocality(), Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         user.put("employerName",companyName);
-        user.put("employerLoc",address);
+        user.put("employerLoc",fullAddress);
+        user.put("state",state);
+        user.put("latlng", geoPoint);
         user.put("email",email);
         user.put("password", password);
         user.put("confirmPassword",confirmPassword);
@@ -170,6 +215,28 @@ public class register_employer extends AppCompatActivity {
         }
         else {
             Toast.makeText(register_employer.this, "Sign Up Failed", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void geoLocate(View view) {
+
+        String companyAddress = etAddress.getText().toString();
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            List<Address> addressList = geocoder.getFromLocationName(companyAddress,1);
+
+            if(addressList.size()>0){
+                Address address = addressList.get(0);
+
+
+
+                mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(),address.getLongitude())));
+
+                Toast.makeText(this, address.getLocality(), Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

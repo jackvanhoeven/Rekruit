@@ -3,9 +3,15 @@ package com.example.rekruit.employer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +24,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +42,19 @@ public class ViewApplicationDetail extends AppCompatActivity {
 
     Button interviewBtn,rejectBtn;
     private String applicationID,applicantID,jobID,employerID,interviewID,applicationStatus, jobTittle, employerName,applicantName,employerLoc,salary;
+    private TextView resumeTV;
+
+    Uri resumeUri;
+    String pdfUri;
+    StorageReference storageReference;
+    DatabaseReference databaseReference;
 
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
     TextView applicantNameTV,emailTV,phoneNumberTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +67,13 @@ public class ViewApplicationDetail extends AppCompatActivity {
         applicantNameTV = findViewById(R.id.nameTVVAD);
         emailTV = findViewById(R.id.emailTVVAD);
         phoneNumberTV = findViewById(R.id.phoneNumVAD);
+
+        resumeTV = findViewById(R.id.applicantResumeTV);
+
+
+        SpannableString content = new SpannableString("Download Resume");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        resumeTV.setText(content);
 
 
         Intent intent = getIntent();
@@ -62,11 +88,18 @@ public class ViewApplicationDetail extends AppCompatActivity {
         interviewID = "interview" + randomID;
 
 
-        applicantID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         checkInitialInterviewStatus();
         checkInitialRejectStatus();
 
+
+        resumeTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                download();
+            }
+        });
         interviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +120,50 @@ public class ViewApplicationDetail extends AppCompatActivity {
 
     }
 
+    private void download() {
+
+        storageReference= FirebaseStorage.getInstance().getReference();
+
+
+        db.collection("users")
+                .whereEqualTo("applicantID",applicantID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+
+
+                                pdfUri = document.getData().get("resumeUri").toString();
+
+                                downloadFile(ViewApplicationDetail.this,"Applicant Resume",".pdf", Environment.DIRECTORY_DOWNLOADS,pdfUri);
+
+
+
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
+    }
+
+    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url){
+
+        DownloadManager downloadManager = (DownloadManager) context.
+                getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory,fileName+fileExtension);
+
+        downloadManager.enqueue(request);
+
+    }
     private void getJobInfo() {
 
         db.collection("Jobs").whereEqualTo("jobID", jobID)
@@ -144,6 +221,31 @@ public class ViewApplicationDetail extends AppCompatActivity {
     }
 
     private void getApplicantInfo() {
+
+        db.collection("application")
+                .whereEqualTo("applicationID",applicationID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+
+
+                                applicantID = document.getData().get("applicantID").toString();
+
+
+
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
+
+
     }
 
     private void checkRejectedStatus() {

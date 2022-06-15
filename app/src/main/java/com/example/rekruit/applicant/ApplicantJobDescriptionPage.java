@@ -1,11 +1,17 @@
 package com.example.rekruit.applicant;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +20,15 @@ import android.widget.Toast;
 
 import com.example.rekruit.R;
 import com.example.rekruit.model.Job;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,22 +40,28 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
-public class ApplicantJobDescriptionPage extends AppCompatActivity {
+public class ApplicantJobDescriptionPage extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private FirebaseFirestore db;
-    private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV;
+    private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV,fullAddrTV;
     private String jobID,employerID, applicationID,applicantID,applicationStatus,jobTittle,saveStatus,savedJobID,applicantName,employerLoc,salary;
-
+    private double latlng;
+    GoogleMap mGoogleMap;
     String employerName;
     ArrayList<Job> list;
     Button applyJobBtn, saveJobBtn;
     Map<String, Object> jobApplication = new HashMap<>();
     Map<String, Object> saveJobHashMap = new HashMap<>();
+
+    private int GPS_REQUEST_CODE = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +71,8 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
         jobTitleTVjobDesc = findViewById(R.id.jobTitleTVjobDesc);
         companyNameTVjobDesc = findViewById(R.id.companyNameTVjobDesc);
         fullJobDescTV = findViewById(R.id.fullJobDescTV);
+        fullAddrTV = findViewById(R.id.fullAddTV);
+
 
         db = FirebaseFirestore.getInstance();
         applyJobBtn = findViewById(R.id.applyJobBtn);
@@ -78,6 +101,10 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
 //        displayJobDesc();
         displayJobInfoTest();
+        getEmployerInfo();
+
+        initMap();
+
         applyJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,9 +124,81 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
 
 
+    }
+
+    private void geoLocate() {
+
+        String locationName = employerLoc;
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            List<Address> addressList =geocoder.getFromLocationName(locationName,5);
+
+            if(addressList.size()>0){
+                Address address = addressList.get(0);
+
+                mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(),address.getLongitude())));
+                gotoLocation(address.getLatitude(),address.getLongitude());
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void gotoLocation(double latitude, double longitude) {
+
+        LatLng LatLng = new LatLng(latitude, longitude);
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(LatLng, 18);
+        mGoogleMap.moveCamera(cameraUpdate);
+        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    }
+
+    private void initMap() {
 
 
 
+
+
+                SupportMapFragment supportMapFragment =  (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
+                supportMapFragment.getMapAsync(this);
+
+
+
+
+    }
+
+
+
+    private void getEmployerInfo() {
+
+        db.collection("users")
+                .whereEqualTo("employerID",employerID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+
+
+
+
+                                employerLoc = document.getData().get("employerLoc").toString();
+
+
+
+
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
     }
 
     private void getApplicantInfo() {
@@ -306,6 +405,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
 
 
 
+
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -420,10 +520,12 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
                                 jobTittle = document.getData().get("jobTitle").toString();
                                 employerLoc = document.getData().get("employerLoc").toString();
                                 salary = document.getData().get("salary").toString();
+                                fullAddrTV.setText(document.getData().get("employerLoc").toString());
 
 
+                                geoLocate();
 
-//
+
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -432,4 +534,28 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mGoogleMap = googleMap;
+
+
+    }
+
+
 }
