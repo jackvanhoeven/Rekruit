@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class register_employer extends AppCompatActivity {
     String emailPattern = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]";
     Map<String, Object> user = new HashMap<>();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    ImageView logoIV;
 
     Button btnSignUp;
     ProgressDialog progressDialog;
@@ -77,7 +79,8 @@ public class register_employer extends AppCompatActivity {
 
 
         btnSignUp = findViewById(R.id.btnSignUp); //declare Button
-        skipToLoginTV = findViewById(R.id.skipToLogin);
+//        skipToLoginTV = findViewById(R.id.skipToLogin);
+        logoIV = findViewById(R.id.logoIV);
 
         progressDialog = new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
@@ -94,7 +97,7 @@ public class register_employer extends AppCompatActivity {
             }
         });
 
-        skipToLoginTV.setOnClickListener(new View.OnClickListener() {
+        logoIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ToLoginPage();
@@ -108,7 +111,7 @@ public class register_employer extends AppCompatActivity {
 
         String companyName = etCompanyName.getText().toString();
         String state = etState.getText().toString();
-
+        String city = etCity.getText().toString();
         String email = etCompanyEmail.getText().toString();
         String password = etPassword.getText().toString();
         String confirmPassword = etConfirmPassword.getText().toString();
@@ -136,6 +139,7 @@ public class register_employer extends AppCompatActivity {
         user.put("employerName",companyName);
         user.put("employerLoc",fullAddress);
         user.put("state",state);
+        user.put("city",city);
         user.put("latlng", geoPoint);
         user.put("email",email);
         user.put("password", password);

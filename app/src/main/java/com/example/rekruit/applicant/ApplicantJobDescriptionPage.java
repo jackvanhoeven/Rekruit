@@ -51,7 +51,7 @@ import java.util.Random;
 public class ApplicantJobDescriptionPage extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private FirebaseFirestore db;
-    private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV,fullAddrTV;
+    private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV,fullAddrTV,jobReqTV;
     private String jobID,employerID, applicationID,applicantID,applicationStatus,jobTittle,saveStatus,savedJobID,applicantName,employerLoc,salary;
     private double latlng;
     GoogleMap mGoogleMap;
@@ -72,6 +72,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity implements On
         companyNameTVjobDesc = findViewById(R.id.companyNameTVjobDesc);
         fullJobDescTV = findViewById(R.id.fullJobDescTV);
         fullAddrTV = findViewById(R.id.fullAddTV);
+        jobReqTV = findViewById(R.id.jobReqTV);
 
 
         db = FirebaseFirestore.getInstance();
@@ -521,6 +522,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity implements On
                                 employerLoc = document.getData().get("employerLoc").toString();
                                 salary = document.getData().get("salary").toString();
                                 fullAddrTV.setText(document.getData().get("employerLoc").toString());
+                                jobReqTV.setText(document.getData().get("jobReq").toString());
 
 
                                 geoLocate();

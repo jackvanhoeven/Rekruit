@@ -35,7 +35,7 @@ public class post_job extends AppCompatActivity {
     EditText etJobTitle,  etJobDesc, etSalary,etJobReq;
     TextView jobTypeTV,jobCategoryTV;
 
-    String employerName,employerLoc,state;
+    String employerName,employerLoc,state,city;
     String currentUserID;
     private double latlng;
     Map<String, Object> job = new HashMap<>();
@@ -119,6 +119,7 @@ public class post_job extends AppCompatActivity {
                                     employerName = document.getData().get("employerName").toString();
                                     employerLoc = document.getData().get("employerLoc").toString();
                                     state = document.getData().get("state").toString();
+                                    city = document.getData().get("city").toString();
 
 
 
@@ -149,6 +150,8 @@ public class post_job extends AppCompatActivity {
         job.put("jobTitle", jobTitle);
         job.put("jobType", jobType);
         job.put("jobCategory", jobCategory);
+        job.put("state", state);
+        job.put("city", city);
         job.put("jobReq", jobReq);
         job.put("jobDesc", jobDesc);
         job.put("salary", salary);

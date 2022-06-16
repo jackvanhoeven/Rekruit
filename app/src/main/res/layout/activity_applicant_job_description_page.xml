@@ -149,6 +149,12 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="JOB REQUIREMENT" />
+
+                <TextView
+                    android:id="@+id/jobReqTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Full Job Requirement" />
             </LinearLayout>
 
             <LinearLayout

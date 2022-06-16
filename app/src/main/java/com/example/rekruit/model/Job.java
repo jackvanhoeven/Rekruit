@@ -2,13 +2,13 @@ package com.example.rekruit.model;
 
 public class Job {
 
-    private String employerName, jobDesc, jobTitle, jobType, salary, jobID, employerLoc,jobCategory,employerID,jobReq;
+    private String employerName, city, state,jobDesc, jobTitle, jobType, salary, jobID, employerLoc,jobCategory,employerID,jobReq;
 
     public Job() {
     }
 
 
-    public Job(String jobID, String employerName, String jobDesc, String jobTitle,String jobType,String salary,String employerLoc, String EmployerID, String jobReq) {
+    public Job(String jobID, String employerName, String jobDesc, String jobTitle,String jobType,String salary,String employerLoc, String EmployerID, String jobReq,String state,String city) {
         this.jobID = jobID;
         this.employerName = employerName;
         this.jobDesc = jobDesc;
@@ -19,6 +19,24 @@ public class Job {
         this.jobCategory = jobCategory;
         this.jobReq = jobReq;
         this.employerID = employerID;
+        this.state = state;
+        this.city = city;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getEmployerID() {

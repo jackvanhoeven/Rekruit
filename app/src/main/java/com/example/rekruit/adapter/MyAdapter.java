@@ -50,9 +50,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
 
         holder.jobTitle.setText(job.getJobTitle());
         holder.jobType.setText(job.getJobType());
-        holder.salary.setText(job.getSalary());
+        holder.salary.setText("RM "+job.getSalary());
         holder.employerName.setText(job.getEmployerName());
-        holder.employerLoc.setText(job.getEmployerLoc());
+        holder.city.setText(job.getCity());
 
 
 
@@ -91,7 +91,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView jobTitle, jobDesc, jobType, salary,employerName,employerLoc,jobCategory;
+        TextView jobTitle, jobDesc, jobType, salary,employerName,city,jobCategory;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -99,7 +99,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
             jobType = itemView.findViewById(R.id.jobTypeTV);
             salary = itemView.findViewById(R.id.salaryTV);
             employerName = itemView.findViewById(R.id.companyNameTV);
-            employerLoc = itemView.findViewById(R.id.locationTV);
+            city = itemView.findViewById(R.id.cityTV);
             jobCategory = itemView.findViewById(R.id.tvJobCategory);
 
         }

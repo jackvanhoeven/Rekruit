@@ -22,6 +22,7 @@
                 android:background="@drawable/rekruit_logo"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
+                android:id="@+id/logoIV"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -274,16 +275,11 @@
 
 
 
+
+
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/skipToLogin"
-            android:text="Skip to login page"
-            android:textSize="15sp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="250dp"/>
+
 
     </ScrollView>
 
