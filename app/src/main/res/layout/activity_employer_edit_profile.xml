@@ -6,4 +6,324 @@
     android:layout_height="match_parent"
     tools:context=".employer.EmployerEditProfile">
 
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/backBtn"
+    android:orientation="horizontal"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:elevation="10dp"
+    android:padding="5dp"
+    android:layout_margin="8dp"
+
+    >
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/ic_baseline_arrow_back_24"
+
+        />
+
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backBtn"
+        app:layout_constraintVertical_bias="1.0">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn"
+        android:layout_marginTop="10dp"
+
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/job_desc_layout_corner"
+            android:layout_marginBottom="15dp"
+            android:outlineSpotShadowColor="#01b8c8"
+            android:padding="15dp"
+
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/circleprofilepicture"
+                    android:id="@+id/companyPic"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="useremail@gmail.com"
+                    android:id="@+id/companyEmailTV"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/companyNameTVP"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Company Name"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="2dp"
+                tools:layout_editor_absoluteY="270dp" />
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ourMissionLL"
+            android:layout_margin="15dp"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/job_desc_layout_corner"
+            android:layout_marginBottom="15dp"
+            android:outlineSpotShadowColor="#01b8c8"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="OUR MISSION" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Edit"
+                    android:linksClickable="false"
+                    android:autoLink="all"
+                    android:selectAllOnFocus="false"
+
+                    />
+
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/ourMissionTVV"
+                android:text="qweerrrrrrrrrrrrrrr" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/aboutUsLL"
+            android:layout_margin="15dp"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/job_desc_layout_corner"
+            android:layout_marginBottom="15dp"
+            android:outlineSpotShadowColor="#01b8c8"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="ABOUT US" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Edit"
+                    android:linksClickable="false"
+                    android:autoLink="all"
+                    android:selectAllOnFocus="false"
+
+                    />
+
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/aboutUsTVV"
+                android:textStyle="bold"
+                android:text="qweerrrrrrrrrrrrrrr" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/job_desc_layout_corner"
+            android:layout_marginBottom="15dp"
+            android:outlineSpotShadowColor="#01b8c8"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="OUR LOCATION" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Address"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/fullAddTVV"
+
+
+                />
+
+            <fragment
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/mapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ourBenefitLL"
+            android:layout_margin="15dp"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/job_desc_layout_corner"
+            android:layout_marginBottom="15dp"
+            android:outlineSpotShadowColor="#01b8c8"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="OUR Benefit" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Edit"
+                    android:linksClickable="false"
+                    android:autoLink="all"
+                    android:selectAllOnFocus="false"
+
+                    />
+
+
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ourBenefitTVV"
+                android:textStyle="bold"
+                android:text="qweerrrrrrrrrrrrrrr" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

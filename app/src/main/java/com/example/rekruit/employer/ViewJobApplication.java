@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
@@ -31,6 +32,7 @@ public class ViewJobApplication extends AppCompatActivity implements ViewApplica
     private ArrayList<Application> viewApplicationList;
     private ViewApplicationRVAdapter viewApplicationRVAdapter;
     private FirebaseFirestore db;
+    private TextView applicationNumTV;
     ProgressBar loadingPB;
 
     private String jobID,employerID,applicantID;
@@ -39,6 +41,9 @@ public class ViewJobApplication extends AppCompatActivity implements ViewApplica
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_job_application);
+
+
+        applicationNumTV = findViewById(R.id.applicationNumTV);
 
 
         loadingPB = findViewById(R.id.idProgressBar);
@@ -60,6 +65,9 @@ public class ViewJobApplication extends AppCompatActivity implements ViewApplica
 
         Intent intent = getIntent();
         jobID = intent.getStringExtra("jobID");
+
+
+
 
         // below line is use to get the data from Firebase Firestore.
         // previously we were saving data on a reference of Courses
@@ -89,6 +97,11 @@ public class ViewJobApplication extends AppCompatActivity implements ViewApplica
                                 // inside our arraylist which we have
                                 // created for recycler view.
                                 viewApplicationList.add(c);
+                                String applNum = String.valueOf(viewApplicationList.size());
+                                applicationNumTV.setText(applNum);
+
+
+
                             }
                             // after adding the data to recycler view.
                             // we are calling recycler view notifuDataSetChanged
@@ -108,6 +121,10 @@ public class ViewJobApplication extends AppCompatActivity implements ViewApplica
                 Toast.makeText(getApplicationContext(), "Fail to get the data.", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+
 
     }
 

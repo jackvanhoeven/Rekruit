@@ -2,12 +2,12 @@ package com.example.rekruit.model;
 
 public class Application {
 
-    private String applicantID,applicationID,applicationStatus,employerID,jobID,employerName,jobTitle,applicantName;
+    private String applicantID,applicationID,applicationStatus,employerID,jobID,employerName,jobTitle,applicantName,email;
 
     public Application() {
     }
 
-    public Application(String applicantID, String applicationID, String applicationStatus, String employerID, String jobID,String employerName, String jobTitle,String applicantName) {
+    public Application(String applicantID, String applicationID, String applicationStatus, String employerID, String jobID,String employerName, String jobTitle,String applicantName,String email) {
         this.applicantID = applicantID;
         this.applicationID = applicationID;
         this.applicationStatus = applicationStatus;
@@ -16,6 +16,15 @@ public class Application {
         this.employerName = employerName;
         this.jobTitle = jobTitle;
         this.applicantName = applicantName;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getApplicantName() {

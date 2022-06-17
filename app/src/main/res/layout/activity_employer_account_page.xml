@@ -28,7 +28,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@color/black"
+                android:background="@drawable/circleprofilepicture"
+                android:id="@+id/companyIV"
 
                 />
 
@@ -41,6 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/employerNameTVA"
                     android:text="Employer Name"
                     android:textSize="20sp" />
 
@@ -48,6 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="companyEmail@gmail.com"
+                    android:id="@+id/companyEmailTVA"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -59,6 +62,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:elevation="5dp"
+            android:id="@+id/companyProfileLLL"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

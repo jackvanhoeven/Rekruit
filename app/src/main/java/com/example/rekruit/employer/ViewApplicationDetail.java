@@ -80,8 +80,10 @@ public class ViewApplicationDetail extends AppCompatActivity {
         applicationID = intent.getStringExtra("applicationID");
         jobID = intent.getStringExtra("jobID");
 
+
         getApplicantInfo();
         getJobInfo();
+
 
         Random rand = new Random();
         int randomID = rand.nextInt(99999999)+1;
@@ -114,8 +116,36 @@ public class ViewApplicationDetail extends AppCompatActivity {
                 rejectApplication();
             }
         });
-        
 
+
+
+
+    }
+
+    private void displayApplicantInfo() {
+
+        db.collection("users")
+                .whereEqualTo("applicantID",applicantID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("display profile", document.getId() + " => " + document.getData());
+
+                                applicantNameTV.setText(document.getData().get("applicantName").toString());
+                                emailTV.setText(document.getData().get("email").toString());
+                                phoneNumberTV.setText(document.getData().get("phoneNum").toString());
+
+
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
 
 
     }
@@ -134,6 +164,7 @@ public class ViewApplicationDetail extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAG", document.getId() + " => " + document.getData());
+                                Log.e("tengok id",applicantID);
 
 
                                 pdfUri = document.getData().get("resumeUri").toString();
@@ -234,6 +265,8 @@ public class ViewApplicationDetail extends AppCompatActivity {
 
 
                                 applicantID = document.getData().get("applicantID").toString();
+
+                                displayApplicantInfo();
 
 
 

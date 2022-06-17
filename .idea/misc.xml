@@ -39,10 +39,15 @@
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_applied_job.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_edit_profile.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_home_page.xml" value="0.16" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_interview_details.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_job_description_page.xml" value="0.1555921052631579" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_profile.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_resume_page.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_saved_job.xml" value="0.15789473684210525" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_edit_about_us.xml" value="0.14901315789473685" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_edit_company_profile.xml" value="0.15789473684210525" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_edit_mission.xml" value="0.14901315789473685" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_edit_our_benefit.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_employer_account_page.xml" value="0.1555921052631579" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_employer_edit_profile.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_employer_home_page.xml" value="0.15789473684210525" />
@@ -66,6 +71,7 @@
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/saved_job_card_view.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/toolbar.xml" value="0.1555921052631579" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/view_application_row.xml" value="0.15789473684210525" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/view_interview_row.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/menu/employer_menu_nav.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/menu/menu_navigation.xml" value="0.15789473684210525" />
       </map>

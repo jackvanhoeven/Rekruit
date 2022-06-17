@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".employer.EditAboutUs">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backBtn"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="10dp"
+        android:padding="5dp"
+        android:layout_margin="8dp"
+
+        >
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+
+            />
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn"
+        android:layout_marginTop="50dp"
+
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ourMissionLL"
+            android:layout_margin="15dp"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/job_desc_layout_corner"
+            android:layout_marginBottom="15dp"
+            android:outlineSpotShadowColor="#01b8c8"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:text="ABOUT US" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:textColorHint="@color/black">
+
+                <EditText
+                    android:id="@+id/etFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:hint="About Us"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+
+        android:id="@+id/editAboutUsBtn"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:background="@drawable/button_radius_shape"
+        app:backgroundTint="#01b8c8"
+
+      app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
