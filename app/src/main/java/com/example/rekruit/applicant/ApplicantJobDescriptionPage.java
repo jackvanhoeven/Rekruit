@@ -51,7 +51,7 @@ import java.util.Random;
 public class ApplicantJobDescriptionPage extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private FirebaseFirestore db;
-    private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV,fullAddrTV,jobReqTV;
+    private TextView jobTitleTVjobDesc, companyNameTVjobDesc,fullJobDescTV,fullAddrTV,jobReqTV,aboutUSTV,ourBenefitTV;
     private String jobID,employerID, applicationID,applicantID,applicationStatus,jobTittle,saveStatus,savedJobID,applicantName,employerLoc,salary;
     private double latlng;
     GoogleMap mGoogleMap;
@@ -73,6 +73,9 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity implements On
         fullJobDescTV = findViewById(R.id.fullJobDescTV);
         fullAddrTV = findViewById(R.id.fullAddTV);
         jobReqTV = findViewById(R.id.jobReqTV);
+
+        aboutUSTV = findViewById(R.id.aboutUsTVAJDP);
+        ourBenefitTV = findViewById(R.id.ourBenefitTVAJDP);
 
 
         db = FirebaseFirestore.getInstance();
@@ -96,6 +99,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity implements On
         savedJobID = "savedJob" + randomID;
 
         getApplicantInfo();
+
 
         checkInitialApplicationStatus();
         checkInitialSaveStatus();
@@ -524,8 +528,35 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity implements On
                                 fullAddrTV.setText(document.getData().get("employerLoc").toString());
                                 jobReqTV.setText(document.getData().get("jobReq").toString());
 
-
+                                displayCompanyProfile();
                                 geoLocate();
+
+
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
+    }
+
+    private void displayCompanyProfile() {
+
+        db.collection("users")
+                .whereEqualTo("employerID",employerID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+
+
+                                aboutUSTV.setText(document.getData().get("aboutUS").toString());
+                                ourBenefitTV.setText(document.getData().get("ourBenefit").toString());
+
 
 
                             }

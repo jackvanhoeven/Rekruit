@@ -20,13 +20,13 @@
         <TextView
             android:id="@+id/appJobTitleTV"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="42dp"
             android:layout_marginTop="4dp"
+            android:layout_weight="1"
             android:text="Job Title"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_weight="1"/>
+            android:textStyle="bold" />
 
 
             <LinearLayout

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
+import com.example.rekruit.authentication.login_applicant;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -58,7 +59,7 @@ public class EmployerEditProfile extends AppCompatActivity implements OnMapReady
 
 
     LinearLayout aboutUSLL,ourMissionLL,ourBenefitLL;
-    private ImageView companyProfileIV;
+    private ImageView companyProfileIV,backBtn;
     private String employerLoc;
     private TextView fullAddTV,aboutUsTV,ourMissionTV,ourBenefitTV;
 
@@ -115,7 +116,7 @@ public class EmployerEditProfile extends AppCompatActivity implements OnMapReady
         ourBenefitTV = findViewById(R.id.ourBenefitTVV);
         fullAddTV = findViewById(R.id.fullAddTVV);
 
-
+        backBtn= findViewById(R.id.eepBackBtn);
 
         aboutUSLL = findViewById(R.id.aboutUsLL);
         ourMissionLL = findViewById(R.id.ourMissionLL);
@@ -128,6 +129,12 @@ public class EmployerEditProfile extends AppCompatActivity implements OnMapReady
 
         displayCompanyProfile();
 
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toEmployerAccountPage();
+            }
+        });
 
         companyProfileIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +173,11 @@ public class EmployerEditProfile extends AppCompatActivity implements OnMapReady
 
 
         initMap();
+    }
+
+    private void toEmployerAccountPage() {
+        Intent intent = new Intent(EmployerEditProfile.this, EmployerAccountPage.class);
+        startActivity(intent);
     }
 
     private void showImagePickDialog() {

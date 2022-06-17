@@ -42,6 +42,9 @@ public class register_employer extends AppCompatActivity {
 
     EditText etCompanyName, etAddress,etAddress2,etCity,etPostcode,etState, etCompanyEmail, etPassword,etConfirmPassword,etPhoneNumber;
     String emailPattern = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]";
+    String aboutUS;
+    String ourBenefit;
+    String ourMission;
     Map<String, Object> user = new HashMap<>();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     ImageView logoIV;
@@ -136,8 +139,14 @@ public class register_employer extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+
         user.put("employerName",companyName);
         user.put("employerLoc",fullAddress);
+        user.put("aboutUS",aboutUS);
+        user.put("ourBenefit",ourBenefit);
+        user.put("ourMission",ourMission);
+        user.put("Picture URL", "-");
         user.put("state",state);
         user.put("city",city);
         user.put("latlng", geoPoint);

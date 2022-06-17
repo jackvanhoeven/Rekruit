@@ -42,7 +42,7 @@ public class ApplicantInterview extends Fragment implements  InterviewRVAdapter.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_applicant_applied, container, false);
+        View view =  inflater.inflate(R.layout.fragment_applicant_interview, container, false);
 
 
         // initializing our variables.

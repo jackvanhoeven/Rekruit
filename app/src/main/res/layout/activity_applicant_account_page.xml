@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/usernameTV"
+                    android:id="@+id/usernameTVAAP"
                     android:text="Hi, username"
                     android:textSize="18sp" />
 

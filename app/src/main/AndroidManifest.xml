@@ -20,6 +20,9 @@
             android:name=".employer.EditAboutUs"
             android:exported="false" />
         <activity
+            android:name=".employer.EditOurBenefit"
+            android:exported="false" />
+        <activity
             android:name=".employer.EditMission"
             android:exported="false" />
         <activity

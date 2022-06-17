@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
+import com.example.rekruit.authentication.login_applicant;
 import com.example.rekruit.model.Constant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -169,6 +171,7 @@ public class post_job extends AppCompatActivity {
 
                         Toast.makeText(post_job.this, "Job Posted Successfully", Toast.LENGTH_SHORT).show();
                           clearData();
+                          toHomePage();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -183,6 +186,11 @@ public class post_job extends AppCompatActivity {
 
 
 
+    }
+
+    private void toHomePage() {
+        Intent intent = new Intent(post_job.this, employer_home_page.class);
+        startActivity(intent);
     }
 
     private void clearData() {

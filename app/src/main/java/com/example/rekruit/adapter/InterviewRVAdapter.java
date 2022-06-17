@@ -37,12 +37,12 @@ public class InterviewRVAdapter  extends RecyclerView.Adapter<InterviewRVAdapter
     public void onBindViewHolder(@NonNull InterviewRVAdapter.ViewHolder holder, int position) {
 
         // setting data to our text views from our modal class.
-        Interview application = interviewArrayList.get(position);
+        Interview interview = interviewArrayList.get(position);
 
-        holder.tvJobName.setText(application.getJobTitle());
-        holder.tvEmployerName.setText(application.getEmployerName());
-        holder.tvApplicationStatus.setText(application.getApplicationStatus());
-        holder.tvApplicationID.setText(application.getApplicationID());
+        holder.tvJobName.setText(interview.getJobTitle());
+        holder.tvEmployerName.setText(interview.getEmployerName());
+        holder.tvApplicationStatus.setText(interview.getApplicationStatus());
+        holder.tvApplicationID.setText(interview.getApplicationID());
 
 
     }
@@ -70,10 +70,10 @@ public class InterviewRVAdapter  extends RecyclerView.Adapter<InterviewRVAdapter
             super(itemView);
             // initializing our text views.
 
-            tvEmployerName = itemView.findViewById(R.id.appCompanyTV);
-            tvJobName = itemView.findViewById(R.id.appJobTitleTV);
-            tvApplicationStatus = itemView.findViewById(R.id.applicantStatus);
-            tvApplicationID = itemView.findViewById(R.id.applicationIDTV);
+            tvEmployerName = itemView.findViewById(R.id.VIRApplicantName);
+            tvJobName = itemView.findViewById(R.id.VIRJobTitle);
+            tvApplicationStatus = itemView.findViewById(R.id.VIRApplicationStatus);
+            tvApplicationID = itemView.findViewById(R.id.VIRJobID);
 
             itemView.setOnClickListener(this);
 

@@ -18,7 +18,7 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/VJAJobTitle"
+            android:id="@+id/VIRJobTitle"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginTop="4dp"
@@ -35,7 +35,7 @@
                 android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/VJAApplicantName"
+                android:id="@+id/VIRApplicantName"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
 
@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/VJAApplicationStatus"
+                    android:id="@+id/VIRApplicationStatus"
 
                     android:text="Status"/>
 
@@ -60,7 +60,7 @@
        <TextView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:id="@+id/VJAJobID"
+           android:id="@+id/VIRJobID"
            android:text="Job ID"/>
 
 

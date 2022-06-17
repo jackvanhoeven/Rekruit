@@ -121,10 +121,9 @@ public class ApplicantAccountPage extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.accountNav);
 
         btnLogout = findViewById(R.id.logoutBtn);
-        userNameTV = findViewById(R.id.usernameTV);
+        userNameTV = findViewById(R.id.usernameTVAAP);
         userEmailTV = findViewById(R.id.userEmailTV);
         pdfIV = findViewById(R.id.resumeIV);
-        userNameTV = findViewById(R.id.usernameTV);
 
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -213,9 +212,11 @@ public class ApplicantAccountPage extends AppCompatActivity {
 
 
                         url = document.getData().get("Picture URL").toString();
+
 //                        new EditProfileActivity.FetchImage(url).start();
                         Picasso.with(ApplicantAccountPage.this).load(url).into(userIV);
                         userEmailTV.setText(document.getData().get("email").toString());
+                        userNameTV.setText(document.getData().get("applicantName").toString());
 
 
                     } else {
