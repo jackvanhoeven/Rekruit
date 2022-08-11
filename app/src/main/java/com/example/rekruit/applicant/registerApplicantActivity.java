@@ -33,6 +33,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
 
 
     EditText etEmail, etPassword,etConfirmPassword, etFullName,etPhoneNumber;
+    Boolean verify = false;
     String emailPattern = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]";
     Map<String, Object> user = new HashMap<>();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -165,6 +166,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
 
         // Create a new user with a first and last name
 
+        user.put("verify",verify);
         user.put("email",email);
         user.put("password", password);
         user.put("confirmPassword",confirmPassword);

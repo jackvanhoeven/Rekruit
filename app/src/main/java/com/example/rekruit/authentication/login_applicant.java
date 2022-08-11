@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.rekruit.R;
 import com.example.rekruit.applicant.ApplicantHomePage;
+import com.example.rekruit.applicant.ApplicantVerification;
 import com.example.rekruit.applicant.job_list;
 import com.example.rekruit.applicant.registerApplicantActivity;
 import com.example.rekruit.employer.employer_home_page;
@@ -152,12 +153,19 @@ public class login_applicant extends AppCompatActivity {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         if(document.getData().get("userType").toString().equals("Applicant")){
-
-                            toApplicantHomePage();
-
+                            if(document.getData().get("verify").toString().equals("true")){
+                                toApplicantHomePage();//if applicant is verified, proceed
+                            }else if(document.getData().get("verify").toString().equals("false")){
+                                toApplicantVerifyPage();//applicant need to be verified to use the app
+                            }
                         }else if(document.getData().get("userType").toString().equals("Employer")){
+                            if(document.getData().get("verify").toString().equals("true")){
+                                toEmployerHomePage();
+                            }else{
+                                toEmployerVerifyPage();
+                            }
 
-                            toEmployerHomePage();
+
 
                         }
                     } else {
@@ -172,6 +180,14 @@ public class login_applicant extends AppCompatActivity {
 
 
 
+    }
+
+    private void toEmployerVerifyPage() {
+    }
+
+    private void toApplicantVerifyPage() {
+        Intent intent = new Intent(login_applicant.this, ApplicantVerification.class);
+        startActivity(intent);
     }
 
     private void toApplicantHomePage() {

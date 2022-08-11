@@ -316,7 +316,7 @@ public class ApplicantAccountPage extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                         userIV.setImageURI(null);
-                        Toast.makeText(ApplicantAccountPage.this, "Sucessfully Uploaded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ApplicantAccountPage.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
                         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {

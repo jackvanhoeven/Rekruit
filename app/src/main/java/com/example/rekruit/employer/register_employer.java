@@ -143,9 +143,9 @@ public class register_employer extends AppCompatActivity {
 
         user.put("employerName",companyName);
         user.put("employerLoc",fullAddress);
-        user.put("aboutUS",aboutUS);
-        user.put("ourBenefit",ourBenefit);
-        user.put("ourMission",ourMission);
+        user.put("aboutUS","-");
+        user.put("ourBenefit","-");
+        user.put("ourMission","-");
         user.put("Picture URL", "-");
         user.put("state",state);
         user.put("city",city);
