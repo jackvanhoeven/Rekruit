@@ -241,7 +241,7 @@ public class ApplicantVerification extends AppCompatActivity {
 
         if(ic_uri == null || selfie_uri == null )
         {
-            Toast.makeText(this, "Please upload necessary document", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please upload necessary document ", Toast.LENGTH_SHORT).show();
         }
         else {
             progressDialog = new ProgressDialog(this);
