@@ -45,7 +45,6 @@ private ItemClickListener mClickListener;
         holder.tvSalary.setText(job.getSalary());
         holder.tvEmployerLoc.setText(job.getEmployerLoc());
 
-
     }
 
     @Override
@@ -70,8 +69,6 @@ private ItemClickListener mClickListener;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // initializing our text views.
-
-
             tvJobTitle = itemView.findViewById(R.id.cdJobTitleTV);
             tvJobType = itemView.findViewById(R.id.cdJobTypeTV);
             tvSalary = itemView.findViewById(R.id.cdSalaryTV);

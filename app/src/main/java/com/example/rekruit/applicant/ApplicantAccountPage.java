@@ -210,7 +210,6 @@ public class ApplicantAccountPage extends AppCompatActivity {
                         Log.d("ProfileActivity", "DocumentSnapshot data: " + document.getData());
 
 
-
                         url = document.getData().get("Picture URL").toString();
 
 //                        new EditProfileActivity.FetchImage(url).start();

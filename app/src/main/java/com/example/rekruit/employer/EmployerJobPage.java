@@ -37,8 +37,6 @@ public class EmployerJobPage extends AppCompatActivity implements EmployerViewJo
 
     private String jobID,employerID,applicantID;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +60,7 @@ public class EmployerJobPage extends AppCompatActivity implements EmployerViewJo
         db = FirebaseFirestore.getInstance();
 
 
-
-        //Iniatialize and Assign Variable
+        //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.employer_Bottom_navigation);
 
         //Set Home Selected
@@ -141,8 +138,6 @@ public class EmployerJobPage extends AppCompatActivity implements EmployerViewJo
                 Toast.makeText(getApplicationContext(), "Fail to get the data.", Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
     }
 

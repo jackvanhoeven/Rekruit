@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
+import com.example.rekruit.admin.AdminHomePage;
+import com.example.rekruit.admin.AdminManageUser;
 import com.example.rekruit.applicant.ApplicantHomePage;
 import com.example.rekruit.applicant.ApplicantVerification;
 import com.example.rekruit.applicant.job_list;
@@ -138,8 +140,6 @@ public class login_applicant extends AppCompatActivity {
 
         }
 
-
-
     }
 
     private void checkUserType() {
@@ -153,20 +153,20 @@ public class login_applicant extends AppCompatActivity {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         if(document.getData().get("userType").toString().equals("Applicant")){
-                            if(document.getData().get("verify").toString().equals("true")){
+                            if(document.getData().get("verify").toString().equals("verify")){
                                 toApplicantHomePage();//if applicant is verified, proceed
-                            }else if(document.getData().get("verify").toString().equals("false")){
+                            }else {
                                 toApplicantVerifyPage();//applicant need to be verified to use the app
                             }
                         }else if(document.getData().get("userType").toString().equals("Employer")){
-                            if(document.getData().get("verify").toString().equals("true")){
+                            if(document.getData().get("verify").toString().equals("verify")){
                                 toEmployerHomePage();
                             }else{
                                 toEmployerVerifyPage();
                             }
 
-
-
+                        }else if(document.getData().get("userType").toString().equals("admin")){
+                            toAdminHomePage();
                         }
                     } else {
                        Log.d(TAG, "No such User");
@@ -178,8 +178,11 @@ public class login_applicant extends AppCompatActivity {
             }
         });
 
+    }
 
-
+    private void toAdminHomePage() {
+        Intent intent = new Intent(login_applicant.this, AdminHomePage.class);
+        startActivity(intent);
     }
 
     private void toEmployerVerifyPage() {

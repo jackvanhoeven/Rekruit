@@ -50,7 +50,6 @@ ApplicantSaved extends Fragment implements  SavedJobRVAdapter.ItemClickListener{
     private TextView filterJobTV;
 
 
-
     ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;

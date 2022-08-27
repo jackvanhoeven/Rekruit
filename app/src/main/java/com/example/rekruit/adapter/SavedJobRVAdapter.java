@@ -74,17 +74,11 @@ public class SavedJobRVAdapter extends RecyclerView.Adapter<SavedJobRVAdapter.Vi
             super(itemView);
             // initializing our text views.
 
-
-
             tvJobTitle = itemView.findViewById(R.id.cdJobTitleTV);
             tvJobType = itemView.findViewById(R.id.cdJobTypeTV);
             tvSalary = itemView.findViewById(R.id.cdSalaryTV);
             tvEmployerName = itemView.findViewById(R.id.cdCompanyNameTV);
             tvEmployerLoc = itemView.findViewById(R.id.cdLocationTV);
-
-
-
-
 
             itemView.setOnClickListener(this);
 

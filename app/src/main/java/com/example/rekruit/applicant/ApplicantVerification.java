@@ -23,9 +23,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
+import com.example.rekruit.authentication.login_applicant;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,7 +43,7 @@ import java.util.Locale;
 public class ApplicantVerification extends AppCompatActivity {
     ImageView idIV,selfieIV;
     ProgressDialog progressDialog;
-    private FirebaseFirestore db;
+    private FirebaseFirestore db= FirebaseFirestore.getInstance();;
 
     //permission constants
     private static final int LOCATION_REQUEST_CODE = 100;
@@ -58,6 +63,7 @@ public class ApplicantVerification extends AppCompatActivity {
     StorageReference icReference,selfieReference;
     int number;
     Button submitBtn;
+    ImageView lgtBtn;
     Bundle bundle;
 
     //firebase auth
@@ -79,7 +85,18 @@ public class ApplicantVerification extends AppCompatActivity {
         idIV = findViewById(R.id.verifyICIV);
         selfieIV = findViewById(R.id.selfieICIV);
         submitBtn = findViewById(R.id.applicantVrfBtn);
+        lgtBtn = findViewById(R.id.logoutBtnV);
 
+
+
+        lgtBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+                Intent intent = new Intent(getApplicationContext(), login_applicant.class);
+                startActivity(intent);
+            }
+        });
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +128,79 @@ public class ApplicantVerification extends AppCompatActivity {
             }
         });
 
+        checkVerificationStatus();
+
+    }
+
+    private void checkVerificationStatus() {
+
+        DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.e("ProfileActivity", "DocumentSnapshot data: " + document.getData());
+
+                        String status = document.getData().get("verify").toString();
+
+                        if(status.equals("pending")){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ApplicantVerification.this);
+
+                            builder.setMessage("Please wait, your verification will be processed within 24 hours once all documents have been correctly submitted");
+                            builder.setTitle("Your account verification are still pending.");
+                            builder.setCancelable(false);
+                            idIV.setClickable(false);
+                            selfieIV.setClickable(false);
+                            submitBtn.setClickable(false);
+
+                            builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }
+                        else if(status.equals("verify")){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ApplicantVerification.this);
+
+                            builder.setMessage("Congratulation");
+                            builder.setTitle("Your account have been verified.");
+                            builder.setCancelable(false);
+
+                            builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }
+                        else{
+
+                        }
+
+
+                    } else {
+                        Log.d("ProfileActivity", "No such document");
+                    }
+                } else {
+                    Log.d("ProfileActivity", "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
     }
 
     private void pickFromCamera1() {
@@ -267,6 +357,7 @@ public class ApplicantVerification extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
 
                                     Log.e("URL ", "onSuccess: " + uri);
+
                                     icUrl = uri.toString();
 
                                     selfieReference.putFile(selfie_uri)
@@ -278,7 +369,14 @@ public class ApplicantVerification extends AppCompatActivity {
                                                         @Override
                                                         public void onSuccess(Uri uri) {
                                                             Log.e("URL", "on success: " + uri);
+                                                            updatePictureURL();
                                                             selfieUrl = uri.toString();
+                                                            updateICURL();
+                                                            updatePictureURL();
+                                                            updateVerificationStatus();
+
+
+
 
                                                         }
                                                     });
@@ -304,6 +402,80 @@ public class ApplicantVerification extends AppCompatActivity {
 
         }
 
+    }
+
+    private void updateVerificationStatus() {
+
+        DocumentReference nameRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        nameRef
+                .update("verify", "pending")
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("EditName", "IC URL successfully updated!");
+                        idIV.setClickable(false);
+                        selfieIV.setClickable(false);
+                        submitBtn.setClickable(false);
+
+                        checkVerificationStatus();
+                       /* Intent intent = new Intent(getApplicationContext(),customerProfile.class);
+                        startActivity(intent);*/
+
+                        Toast.makeText(ApplicantVerification.this, "Profile Picture updated successfully.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("EditName", "Error updating document", e);
+                    }
+                });
+
+
+    }
+
+    private void updateICURL() {
+        DocumentReference nameRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        nameRef
+                .update("IC URL", icUrl)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("EditName", "IC URL successfully updated!");
+
+
+                        Toast.makeText(ApplicantVerification.this, "Profile Picture updated successfully.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("EditName", "Error updating document", e);
+                    }
+                });
+    }
+
+    private void updatePictureURL() {
+        DocumentReference nameRef = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        nameRef
+                .update("Selfie URL", selfieUrl)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("EditName", "DocumentSnapshot successfully updated!");
+
+                       /* Intent intent = new Intent(getApplicationContext(),customerProfile.class);
+                        startActivity(intent);*/
+
+                        Toast.makeText(ApplicantVerification.this, "Profile Picture updated successfully.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("EditName", "Error updating document", e);
+                    }
+                });
     }
 
     @Override

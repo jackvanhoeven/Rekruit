@@ -163,16 +163,8 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity implements On
 
     private void initMap() {
 
-
-
-
-
                 SupportMapFragment supportMapFragment =  (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
                 supportMapFragment.getMapAsync(this);
-
-
-
-
     }
 
 
@@ -189,14 +181,7 @@ public class ApplicantJobDescriptionPage extends AppCompatActivity implements On
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAG", document.getId() + " => " + document.getData());
 
-
-
-
                                 employerLoc = document.getData().get("employerLoc").toString();
-
-
-
-
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());

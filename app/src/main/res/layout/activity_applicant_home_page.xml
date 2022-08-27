@@ -32,7 +32,7 @@
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            />
+
 
             <ImageView
                 android:id="@+id/filterBtn"
@@ -84,7 +84,6 @@
 
 
     </RelativeLayout>
-
 
 
 

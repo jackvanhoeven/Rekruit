@@ -166,7 +166,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
 
         // Create a new user with a first and last name
 
-        user.put("verify",verify);
+        user.put("verify","-");
         user.put("email",email);
         user.put("password", password);
         user.put("confirmPassword",confirmPassword);

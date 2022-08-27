@@ -87,13 +87,9 @@ public class ApplicantHomePage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         filterRecyclerView.setAdapter(filterJobAdapter);
 
-
-
 //        jobID = getIntent().getStringExtra("jobID");
 
         EventChangeListener();//to list available job using recyclerview
-
-
 
         //Iniatialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -127,13 +123,6 @@ public class ApplicantHomePage extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
         filterJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,10 +130,6 @@ public class ApplicantHomePage extends AppCompatActivity {
                 filterJobAdapter.clear();
 
                 jobCategoryDialog();
-
-
-
-
 
             }
         });
@@ -160,19 +145,12 @@ public class ApplicantHomePage extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String selected = Constant.jobCategory[which];
 
-
-
                         //set pick category
                         filterJobTV.setText(selected);
                         Log.e("Show something",selected);
 
-
-
                         if(selected.equals("All")){
-
-
                             recyclerView.setVisibility(View.VISIBLE);
-
                         }
                         else{
                             recyclerView.setVisibility(View.GONE);
@@ -197,8 +175,6 @@ public class ApplicantHomePage extends AppCompatActivity {
 
                                                     filterJobList.add(dc.getDocument().toObject(Job.class));
 
-
-
                                                 }
 
                                                 filterJobAdapter.notifyDataSetChanged();{
@@ -209,9 +185,7 @@ public class ApplicantHomePage extends AppCompatActivity {
                                             }
                                         }
                                     });
-
                         }
-
                     }
                 })
                 .show();

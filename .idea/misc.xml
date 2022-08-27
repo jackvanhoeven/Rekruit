@@ -37,7 +37,10 @@
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/drawable/round_gray.xml" value="0.201" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/drawable/selector.xml" value="0.201" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/drawable/tab_indicator.xml" value="0.185" />
-        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_account_page.xml" value="0.15789473684210525" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_admin_home_page.xml" value="0.2" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_admin_manage_user.xml" value="0.15789473684210525" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_admin_view_verification_details.xml" value="0.15789473684210525" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_account_page.xml" value="0.1" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_applied_job.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_edit_profile.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/activity_applicant_home_page.xml" value="0.16" />
@@ -75,6 +78,7 @@
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/toolbar.xml" value="0.1555921052631579" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/view_application_row.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/view_interview_row.xml" value="0.15789473684210525" />
+        <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/layout/view_user_verification.xml" value="0.15723684210526315" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/menu/employer_menu_nav.xml" value="0.15789473684210525" />
         <entry key="..\:/Android Studio Project/Rekruit/app/src/main/res/menu/menu_navigation.xml" value="0.15789473684210525" />
       </map>
