@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +38,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
     EditText etEmail, etPassword,etConfirmPassword, etFullName,etPhoneNumber;
     Boolean verify = false;
     String emailPattern = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]";
+    String email;
     Map<String, Object> user = new HashMap<>();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -122,6 +126,85 @@ public class   registerApplicantActivity extends AppCompatActivity {
         String phoneNumber = etPhoneNumber.getText().toString();
 
 
+        //// <---- Validation ---- ////
+
+        // <---- EditText Validation
+
+        // If All Empty
+        if (fullName.isEmpty() &&
+
+                phoneNumber.isEmpty() &&
+                email.isEmpty() &&
+                password.isEmpty() &&
+                confirmPassword.isEmpty() ){
+
+            etFullName.setError("Require to fill");
+            etPhoneNumber.setError("Require to fill");
+            etEmail.setError("Require to fill");
+            etPassword.setError("Require to fill");
+            etConfirmPassword.setError("Require to fill");
+
+            return;
+
+        };
+
+        if (fullName.isEmpty()){
+            etFullName.setError("Require to fill");
+            return;
+        }
+        // validation phone
+        if (phoneNumber.isEmpty()){
+            etPhoneNumber.setError("Require to fill");
+            return;
+        }
+        if (!phoneNumber.matches("^[0-9]+$")){
+            etPhoneNumber.setError("Invalid character, input 0~9 only");
+            return;
+        }
+
+        if (phoneNumber.length() < 10 || phoneNumber.length() > 11 ){
+            etPhoneNumber.setError("Phone number should be at least 10 and at most 11 characters");
+            return;
+        }
+
+        //validation email
+        if (email.isEmpty()){
+            etEmail.setError("Require to fill");
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            etEmail.setError("Invalid email format");
+            return;
+        }
+
+        //validation password
+        if (password.isEmpty()){
+            etPassword.setError("Require to fill");
+            return;
+        }
+        if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[!@#$%^&*+=?-]).{8,25}$")){
+            etPassword.setError("Password should contain 0~9, a~z, symbol, more than 8");
+            return;
+        }
+
+
+        //validation confirm password
+        if (confirmPassword.isEmpty()){
+            etConfirmPassword.setError("Require to fill");
+            return;
+        }
+        if (!confirmPassword.equals(password)){
+            etConfirmPassword.setError("Password not same");
+            return;
+        }
+
+
+
+        // ----> EditText Validation
+
+
+        //// ---- Validation ----> ////
+
 
 
 
@@ -133,9 +216,6 @@ public class   registerApplicantActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         //Log.d(TAG, "createUserWithEmail:success");
-
-
-
                         Toast.makeText(getApplicationContext(), "Authentication Success.",
                                 Toast.LENGTH_SHORT).show();
 
@@ -144,7 +224,7 @@ public class   registerApplicantActivity extends AppCompatActivity {
                     } else {
                         // If sign in fails, display a message to the user.
                         //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                        Toast.makeText(getApplicationContext(), "Authentication failed or Email already in use",
                                 Toast.LENGTH_SHORT).show();
                         //updateUI(null);
                     }
@@ -156,6 +236,8 @@ public class   registerApplicantActivity extends AppCompatActivity {
             Toast.makeText(registerApplicantActivity.this, "Sign Up Failed", Toast.LENGTH_LONG).show();
         }
     }
+
+
 
     private void AddApplicantInfo() {
         String email = etEmail.getText().toString();

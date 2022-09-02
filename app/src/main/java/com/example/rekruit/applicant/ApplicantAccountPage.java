@@ -29,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rekruit.admin.AdminHomePage;
+import com.example.rekruit.admin.AdminManageEmployer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -61,7 +63,7 @@ import java.util.Map;
 
 public class ApplicantAccountPage extends AppCompatActivity {
 
-    private ImageView btnLogout,userIV,pdfIV;
+    private ImageView btnLogout,userIV,pdfIV,myProfileIV;
 
     Map<String, Object> user = new HashMap<>();
     ProgressDialog progressDialog;
@@ -113,6 +115,7 @@ public class ApplicantAccountPage extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         userIV = findViewById(R.id.userPic);
+        myProfileIV = findViewById(R.id.applicantMyProfileIV);
 
         //Iniatialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -153,6 +156,13 @@ public class ApplicantAccountPage extends AppCompatActivity {
                 signOut();
                 Intent intent = new Intent(getApplicationContext(), login_applicant.class);
                 startActivity(intent);
+            }
+        });
+
+        myProfileIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToMyProfilePage();
             }
         });
 
@@ -197,6 +207,11 @@ public class ApplicantAccountPage extends AppCompatActivity {
         displayProfile();
 
 
+    }
+
+    private void goToMyProfilePage() {
+        Intent intent = new Intent(ApplicantAccountPage.this, ApplicantEditPhoneNum.class);
+        startActivity(intent);
     }
 
     private void displayProfile() {

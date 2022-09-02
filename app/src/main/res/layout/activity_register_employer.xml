@@ -57,7 +57,27 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:textColorHint="@color/black">
 
+                <EditText
+                    android:id="@+id/etCompanyRgNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+
+
+                    android:drawableLeft="@drawable/ic_baseline_business_24"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:hint="Company's Registration Number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"

@@ -108,11 +108,11 @@
             android:orientation="horizontal"
             android:elevation="5dp"
             android:id="@+id/companyProfileLLL"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/layout_corner"
-            android:layout_marginBottom="10dp"
+
             android:outlineSpotShadowColor="#01b8c8"
             android:padding="20dp">
 
@@ -143,6 +143,7 @@
             android:outlineSpotShadowColor="#01b8c8"
             android:padding="15dp"
             android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
             >
 
             <ImageView

@@ -210,6 +210,7 @@ public class ViewApplicationDetail extends AppCompatActivity {
                                 employerID = document.getData().get("employerID").toString();
                                 employerName = document.getData().get("employerName").toString();
                                 jobTittle = document.getData().get("jobTitle").toString();
+                                employerLoc = document.getData().get("employerLoc").toString();
 
 
 
@@ -302,9 +303,6 @@ public class ViewApplicationDetail extends AppCompatActivity {
                                 }
 
 
-
-
-//
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -331,6 +329,7 @@ public class ViewApplicationDetail extends AppCompatActivity {
                                     Log.d("TAG", document.getId() + " => " + document.getData());
                                     interviewBtn.setText("Applied");
                                     interviewBtn.setBackgroundColor(Color.GRAY);
+                                    interviewBtn.setClickable(false);
                                 }
 
                             }
@@ -431,9 +430,6 @@ public class ViewApplicationDetail extends AppCompatActivity {
                                 }
 
 
-
-
-//
                             }
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());

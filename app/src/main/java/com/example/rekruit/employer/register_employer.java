@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +41,7 @@ import java.util.Map;
 public class register_employer extends AppCompatActivity {
 
 
-    EditText etCompanyName, etAddress,etAddress2,etCity,etPostcode,etState, etCompanyEmail, etPassword,etConfirmPassword,etPhoneNumber;
+    EditText etCompanyName, etCompanyRgNum, etAddress,etAddress2,etCity,etPostcode,etState, etCompanyEmail, etPassword,etConfirmPassword,etPhoneNumber;
     String emailPattern = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]";
     String aboutUS;
     String ourBenefit;
@@ -70,6 +71,7 @@ public class register_employer extends AppCompatActivity {
 
         //declare EditText
         etCompanyName = findViewById(R.id.etCompanyName);
+        etCompanyRgNum = findViewById(R.id.etCompanyRgNum);
         etCompanyEmail = findViewById(R.id.etCompanyEmail);
         etAddress = findViewById(R.id.etAddress);
         etAddress2 = findViewById(R.id.etAddress2);
@@ -79,6 +81,7 @@ public class register_employer extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
+
 
 
         btnSignUp = findViewById(R.id.btnSignUp); //declare Button
@@ -113,15 +116,18 @@ public class register_employer extends AppCompatActivity {
     private void AddEmployerInfo() {
 
         String companyName = etCompanyName.getText().toString();
+        String companyRgNum = etCompanyRgNum.getText().toString();
         String state = etState.getText().toString();
         String city = etCity.getText().toString();
+        String address1 = etAddress.getText().toString();
+        String address2 = etAddress2.getText().toString();
+        String postcode = etPostcode.getText().toString();
         String email = etCompanyEmail.getText().toString();
         String password = etPassword.getText().toString();
         String confirmPassword = etConfirmPassword.getText().toString();
         String phoneNumber = etPhoneNumber.getText().toString();
         String fullAddress = etAddress.getText().toString()+", "+etAddress2.getText().toString()+", "+etCity.getText().toString()
                 +", "+etPostcode.getText().toString() +", "+etState.getText().toString();
-
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
@@ -141,7 +147,10 @@ public class register_employer extends AppCompatActivity {
 
 
 
+
+        user.put("verify","pending");
         user.put("employerName",companyName);
+        user.put("regNum",companyRgNum);
         user.put("employerLoc",fullAddress);
         user.put("aboutUS","-");
         user.put("ourBenefit","-");
@@ -189,13 +198,105 @@ public class register_employer extends AppCompatActivity {
     private void RegisterEmployer() {
 
         String companyName = etCompanyName.getText().toString();
-        String address = etAddress.getText().toString();
+        String companyRgNum = etCompanyRgNum.getText().toString();
+        String state = etState.getText().toString();
+        String city = etCity.getText().toString();
+        String address1 = etAddress.getText().toString();
+        String address2 = etAddress2.getText().toString();
+        String postcode = etPostcode.getText().toString();
         String email = etCompanyEmail.getText().toString();
         String password = etPassword.getText().toString();
         String confirmPassword = etConfirmPassword.getText().toString();
         String phoneNumber = etPhoneNumber.getText().toString();
+        String fullAddress = etAddress.getText().toString()+", "+etAddress2.getText().toString()+", "+etCity.getText().toString()
+                +", "+etPostcode.getText().toString() +", "+etState.getText().toString();
 
 
+        //// <---- Validation ---- ////
+
+        // <---- EditText Validation
+
+        // If All Empty
+        if (companyName.isEmpty() &&
+
+                companyRgNum.isEmpty()&&
+                address1.isEmpty()&&
+                address2.isEmpty()&&
+                postcode.isEmpty()&&
+                state.isEmpty()&&
+                city.isEmpty()&&
+                phoneNumber.isEmpty() &&
+                email.isEmpty() &&
+                password.isEmpty() &&
+                confirmPassword.isEmpty() ){
+
+            user.put("verify","-");
+
+
+            etCompanyName.setError("Require to fill");
+            etCompanyRgNum.setError("Require to fill");
+            etState.setError("Require to fill");
+            etCity.setError("Require to fill");
+            etPhoneNumber.setError("Require to fill");
+            etCompanyEmail.setError("Require to fill");
+            etPassword.setError("Require to fill");
+            etConfirmPassword.setError("Require to fill");
+            etAddress.setError("Require to fill");
+            etAddress2.setError("Require to fill");
+            etPostcode.setError("Require to fill");
+
+            return;
+
+        };
+
+        //// <---- Validation ---- ////
+
+        // <---- EditText Validation
+
+        // validation phone
+        if (phoneNumber.isEmpty()){
+            etPhoneNumber.setError("Require to fill");
+            return;
+        }
+        if (!phoneNumber.matches("^[0-9]+$")){
+            etPhoneNumber.setError("Invalid character, input 0~9 only");
+            return;
+        }
+
+        if (phoneNumber.length() < 10 || phoneNumber.length() > 11 ){
+            etPhoneNumber.setError("Phone number should be at least 10 and at most 11 characters");
+            return;
+        }
+
+        //validation email
+        if (email.isEmpty()){
+            etCompanyEmail.setError("Require to fill");
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            etCompanyEmail.setError("Invalid email format");
+            return;
+        }
+
+        //validation password
+        if (password.isEmpty()){
+            etPassword.setError("Require to fill");
+            return;
+        }
+        if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[!@#$%^&*+=?-]).{8,25}$")){
+            etPassword.setError("Password should contain 0~9, a~z, symbol, more than 8");
+            return;
+        }
+
+        //validation confirm password
+        if (confirmPassword.isEmpty()){
+            etConfirmPassword.setError("Require to fill");
+            return;
+        }
+        if (!confirmPassword.equals(password)){
+            etConfirmPassword.setError("Password not same");
+            return;
+        }
         if(!etCompanyName.getText().toString().equals("") && !etAddress.getText().toString().equals("") &&!etCompanyEmail.getText().toString().equals("")
                 && !etPassword.getText().toString().equals("") && !etConfirmPassword.getText().toString().equals("")
             && !etPhoneNumber.getText().toString().equals("")) {

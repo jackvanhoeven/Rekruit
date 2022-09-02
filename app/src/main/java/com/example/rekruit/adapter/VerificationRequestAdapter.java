@@ -30,7 +30,8 @@ public class VerificationRequestAdapter extends RecyclerView.Adapter<Verificatio
     @NonNull
     @Override
     public VerificationRequestAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      return new VerificationRequestAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.view_user_verification,parent,false));
+      return new VerificationRequestAdapter.ViewHolder(LayoutInflater.from(context)
+              .inflate(R.layout.view_user_verification,parent,false));
     }
 
     @Override

@@ -23,7 +23,7 @@
 
             android:id="@+id/applicationNumTV"
             android:textSize="30sp"
-            android:text="X"
+            android:text="0"
 
             />
 

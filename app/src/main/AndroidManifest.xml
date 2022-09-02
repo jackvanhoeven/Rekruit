@@ -17,6 +17,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rekruit">
         <activity
+            android:name=".applicant.ApplicantEditPhoneNum"
+            android:exported="false" />
+        <activity
+            android:name=".adapter.EmployerVerificationAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminViewEmployerDetails"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminManageEmployer"
+            android:exported="false" />
+        <activity
+            android:name=".employer.EmployerVerification"
+            android:exported="false" />
+        <activity
             android:name=".admin.AdminViewVerificationDetails"
             android:exported="false" />
         <activity

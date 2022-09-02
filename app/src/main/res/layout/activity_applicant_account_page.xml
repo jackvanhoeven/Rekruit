@@ -83,6 +83,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:id="@+id/applicantMyProfileIV"
                 android:background="@drawable/ic_profile" />
 
             <TextView

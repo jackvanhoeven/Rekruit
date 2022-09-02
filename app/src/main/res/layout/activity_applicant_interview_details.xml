@@ -6,4 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".applicant.ApplicantInterviewDetails">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+           android:text="Location"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:text="loc"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:id="@+id/interviewLoc"
+
+            />
+
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

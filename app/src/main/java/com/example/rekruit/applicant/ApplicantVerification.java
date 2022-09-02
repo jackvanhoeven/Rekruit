@@ -148,7 +148,7 @@ public class ApplicantVerification extends AppCompatActivity {
                         if(status.equals("pending")){
                             AlertDialog.Builder builder = new AlertDialog.Builder(ApplicantVerification.this);
 
-                            builder.setMessage("Please wait, your verification will be processed within 24 hours once all documents have been correctly submitted");
+                            builder.setMessage("Please wait, your verification will be processed within 24 hours");
                             builder.setTitle("Your account verification are still pending.");
                             builder.setCancelable(false);
                             idIV.setClickable(false);
@@ -266,9 +266,6 @@ public class ApplicantVerification extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-
-
-
 //            if (number == 1) {
 //                if (resultCode == RESULT_OK) {
 //
@@ -374,7 +371,6 @@ public class ApplicantVerification extends AppCompatActivity {
                                                             updateICURL();
                                                             updatePictureURL();
                                                             updateVerificationStatus();
-
 
 
 

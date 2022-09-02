@@ -123,6 +123,7 @@ public class ApplicantInterview extends Fragment implements  InterviewRVAdapter.
         String interviewID = interviewRVAdapter.getItem(position).getInterviewID();
         Intent intent = new Intent(getContext(),ApplicantInterviewDetails.class);
         intent.putExtra("interviewID",interviewID);
+
         startActivity(intent);
 
     }

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +16,13 @@ import android.widget.Toast;
 
 import com.example.rekruit.R;
 import com.example.rekruit.admin.AdminHomePage;
+import com.example.rekruit.admin.AdminManageEmployer;
 import com.example.rekruit.admin.AdminManageUser;
 import com.example.rekruit.applicant.ApplicantHomePage;
 import com.example.rekruit.applicant.ApplicantVerification;
 import com.example.rekruit.applicant.job_list;
 import com.example.rekruit.applicant.registerApplicantActivity;
+import com.example.rekruit.employer.EmployerVerification;
 import com.example.rekruit.employer.employer_home_page;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -113,6 +116,28 @@ public class login_applicant extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
+        // <----- Validation Input
+        if (email.isEmpty() && password.isEmpty()){
+            etEmail.setError("Required To Fill In");
+            etPassword.setError("Required To Fill In");
+            return;
+        }
+        //validation email
+        if (email.isEmpty()){
+            etEmail.setError("Require to fill");
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            etEmail.setError("Invalid email format");
+            return;
+        }
+
+        //validation password
+        if (password.isEmpty()){
+            etPassword.setError("Require to fill");
+            return;
+        }
+
 
         if(!email.equals("") && !password.equals("")) {
 
@@ -186,6 +211,8 @@ public class login_applicant extends AppCompatActivity {
     }
 
     private void toEmployerVerifyPage() {
+        Intent intent = new Intent(login_applicant.this, EmployerVerification.class);
+        startActivity(intent);
     }
 
     private void toApplicantVerifyPage() {

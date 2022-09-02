@@ -4,77 +4,69 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rekruit.R;
-import com.example.rekruit.applicant.ApplicantAccountPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-public class AdminViewVerificationDetails extends AppCompatActivity {
+public class AdminViewEmployerDetails extends AppCompatActivity {
 
-    TextView userName,email,phoneNum;
-    ImageView icPic,selfiePic;
-    private FirebaseAuth firebaseAuth;
+    TextView employerName,regNum,email,phoneNum,address;
+    String employerID;
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
-    String icUrl,selfieUrl,applicantID;
     Button approveBtn,rejectBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_view_verification_details);
+        setContentView(R.layout.activity_admin_view_employer_details);
 
-        userName = findViewById(R.id.usernameAVVDTV);
-        email = findViewById(R.id.userEmailAVVDTV);
-        phoneNum = findViewById(R.id.phoneNumAVVDTV);
+        employerName = findViewById(R.id.tvEmpNameAVED);
+        regNum = findViewById(R.id.tvRegNumAVED);
+        email = findViewById(R.id.tvEmailAVED);
+        phoneNum = findViewById(R.id.tvPhoneNumAVED);
+        address = findViewById(R.id.tvAddressAVED);
 
-        icPic =findViewById(R.id.icIV);
-        selfiePic = findViewById(R.id.selfieICIV);
-
-        approveBtn = findViewById(R.id.approveUserBtn);
-        rejectBtn = findViewById(R.id.rejectUserBtn);
+        approveBtn = findViewById(R.id.approveEmpBtn);
+        rejectBtn = findViewById(R.id.rejectEmpBtn);
 
         Intent intent = getIntent();
-        applicantID = intent.getStringExtra("applicantID");
+        employerID = intent.getStringExtra("employerID");
 
         displayDetails();
-
 
         approveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                verifyUser();
+
+                verifyEmployer();
             }
         });
-        
+
         rejectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rejectRequest();
             }
         });
+
     }
 
     private void rejectRequest() {
-
-        DocumentReference docRef = db.collection("users").document(applicantID);
+        DocumentReference docRef = db.collection("users").document(employerID);
 
         docRef
                 .update("verify", "reject")
@@ -95,13 +87,11 @@ public class AdminViewVerificationDetails extends AppCompatActivity {
                         Log.w("EditName", "Error updating document", e);
                     }
                 });
-
-
     }
 
-    private void verifyUser() {
+    private void verifyEmployer() {
 
-        DocumentReference docRef = db.collection("users").document(applicantID);
+        DocumentReference docRef = db.collection("users").document(employerID);
 
         docRef
                 .update("verify", "verify")
@@ -125,8 +115,9 @@ public class AdminViewVerificationDetails extends AppCompatActivity {
     }
 
     private void displayDetails() {
+
         db.collection("users")
-                .whereEqualTo("applicantID", applicantID)
+                .whereEqualTo("employerID", employerID)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -135,17 +126,15 @@ public class AdminViewVerificationDetails extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAG", document.getId() + " => " + document.getData());
 
-                                icUrl = document.getData().get("IC URL").toString();
-                                selfieUrl = document.getData().get("Selfie URL").toString();
-                                Log.d("Check url", document.getData().get("Selfie URL").toString());
+
+
                                 email.setText(document.getData().get("email").toString());
-                                userName.setText(document.getData().get("applicantName").toString());
+                                regNum.setText(document.getData().get("regNum").toString());
+                                employerName.setText(document.getData().get("employerName").toString());
                                 phoneNum.setText(document.getData().get("phoneNum").toString());
+                                address.setText(document.getData().get("employerLoc").toString());
 //
-//                                icPic.setImageURI((Uri) document.getData().get(icUrl));
-//                                selfiePic.setImageURI((Uri) document.getData().get(selfieUrl));
-                                Picasso.with(AdminViewVerificationDetails.this).load(icUrl).into(icPic);
-                                Picasso.with(AdminViewVerificationDetails.this).load(selfieUrl).into(selfiePic);
+//
 
 
                             }
@@ -154,6 +143,5 @@ public class AdminViewVerificationDetails extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 }
